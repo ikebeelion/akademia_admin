@@ -187,8 +187,8 @@ export default {
 			schoolmotto:"",
 			address:"",
 		},
-		schoolname:localStorage.getItem('schoolname'),
-		address:localStorage.getItem('address')
+		schoolname:"",
+		address:""
 	  }
   },
   methods: {
@@ -208,8 +208,8 @@ export default {
                 this.schoolProfile.schoollogo = result.data['schoollogo']
                 this.schoolProfile.schoolmotto = result.data['schoolmotto']
                 this.schoolProfile.address = result.data['address']                
-				localStorage.setItem('schoolname', result.data['schoolname'])
-				localStorage.setItem('address', result.data['address'])
+				this.schoolname = result.data['schoolname']
+				this.address =  result.data['address']
                                     
             })
 	},
@@ -239,8 +239,7 @@ export default {
   },
 
   created() {
-	this.getAuth()
-	
+	this.getAuth()	
   },
   
 }

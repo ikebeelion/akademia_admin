@@ -126,7 +126,7 @@
                                                         >
                                                         </div>
                                                         <div class="form-group">                                                                                                                        
-                                                            <button style="font-size:8px; border:1px solid white; background:black; color:white" @click="useCommonAddress">school address</button>                                                        
+                                                            <button type="button" style="font-size:8px; border:1px solid white; background:black; color:white" @click="useCommonAddress">school address</button>                                                        
                                                         </div>
                                                         <div class="invalid-feedback"  v-if="errors !=null && branchData.branchaddress == null">
                                                             Please Enter Email
@@ -175,7 +175,7 @@ export default {
     data() {
         return {
             totalsteps:5,
-            step:4,
+            step:0,
             checkFilled:true,
             schooldata:{
                 schoolname:null,
