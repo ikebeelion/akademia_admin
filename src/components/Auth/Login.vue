@@ -29,7 +29,12 @@
 				<div class="card-back" id="card">
 					<h2>Register</h2>
 					<new-registration/>
-										
+					<a href="#" style="align-items:center; margin-top:10px" type="button" class="btn" @click="openLogin()">
+					I have an account 
+					</a>
+					<button style="border: none;">
+					<i  style=" margin-top:0px"  class="fas fa-copyright"> </i> 2022 Next It-Services
+					</button>					
 				</div>
 			</div>
 		</div>

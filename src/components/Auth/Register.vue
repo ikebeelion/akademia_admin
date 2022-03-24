@@ -113,26 +113,34 @@
                                                         <label for="schoolzone">Branch Name <span class="text-danger">*</span></label>
                                                         <input type="text" class="input-box" v-model="branchData.branchname" id="useremail" placeholder="Enter Branch Name" required
                                                         @input="checkAnswered">
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback" v-if="errors !=null && branchData.branchname == null">
                                                             Please Enter Address
                                                         </div>
                                                     </div>
 
-                                                   <div class="mb-3">
+                                                   <div class="form-group-row">
+                                                        <div class="form-group">
                                                         <label for="schoolzone">Branch Address <span class="text-danger">*</span></label>
                                                         <input type="text" class="input-box" v-model="branchData.branchaddress" id="useremail" placeholder="Enter Branch Address" required
                                                         @input="checkAnswered"
-                                                        ><small><button class="btn btn-dark" @click="useCommonAddress">use common address</button></small>
-                                                        <div class="invalid-feedback">
+                                                        >
+                                                        </div>
+                                                        <div class="form-group">                                                                                                                        
+                                                            <button style="font-size:8px; border:1px solid white; background:black; color:white" @click="useCommonAddress">school address</button>                                                        
+                                                        </div>
+                                                        <div class="invalid-feedback"  v-if="errors !=null && branchData.branchaddress == null">
                                                             Please Enter Email
                                                         </div>
                                                     </div>
 
+                                                    
+                                                </div>
+                                                <div v-if="this.step==5">
                                                     <div class="mb-3">
                                                         <label for="username">Username <span class="text-danger">*</span></label>
                                                         <input type="text" class="input-box" v-model="useraccessData.username" id="username" placeholder="Enter username" required
                                                         @input="checkAnswered">
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback" v-if="errors !=null && useraccessData.username == null">
                                                             Please Enter Username
                                                         </div>
                                                     </div>
@@ -141,27 +149,22 @@
                                                         <label for="userpassword">Password <span class="text-danger">*</span></label>
                                                         <input type="password" class="input-box"  v-model="useraccessData.password" id="userpassword" placeholder="Enter password" required
                                                         @input="checkAnswered">
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback" v-if="errors !=null && useraccessData.password == null">
                                                             Please Enter Password
                                                         </div>
                                                     </div>
 
-                                                    <div>
-                                                        <p class="mb-2">By registering you agree to the Akademia <a href="#" class="text-primary">Terms of Use</a></p>
-                                                    </div>
+                                                    <center>
+                                                        <p style="font-size:11px">By registering you agree to the Akademia <a href="#" class="text-primary">Terms of Use</a></p>
+                                                    </center>
                                                 </div>
                                                 <!-- buttons -->
                                                 <center>                                            
                                                     <button style="width:100px; margin-right:5%; background:orange" class="btn" v-if="this.step != 1 " @click.prevent="prevStep"> <i class="fa fa-backward" aria-hidden="true"></i> Previous Step </button>
                                                     <button style="width:100px; margin-right:5%; color:black; background:cyan"  class="btn" v-if="this.step != this.totalsteps" @click.prevent="nextStep" :disabled="checkFilled"> <i class="fa fa-forward" aria-hidden="true"></i> Next Step </button>
-                                                    <button style="width:50px; background:green"  class="submit-btn" v-if="this.step == this.totalsteps" type="submit" @click="submitData">Register</button>
+                                                    <button style="width:100px; background:green" class="btn" v-if="this.step == this.totalsteps" type="submit" @click="submitData">  Register</button>
                                                 </center>
-                                                <button v-if="step == 1" style="background:blue; align-items:center; margin-top:10px" type="button" class="btn" @click="openLogin()">
-					I have an account 
-					</button>
-					<button type="button" style="border:none" >
-					<i  class="fas fa-copyright"> </i> 2022 Next It-Services
-					</button>
+                      
 	</form>         
     </div>
 </template>
@@ -171,8 +174,8 @@ import Register from '../../apis/Register'
 export default {    
     data() {
         return {
-            totalsteps:4,
-            step:0,
+            totalsteps:5,
+            step:4,
             checkFilled:true,
             schooldata:{
                 schoolname:null,
@@ -453,5 +456,16 @@ font-size: 12px;
     font-size: 12px;
     color:red
 }
+ .form-group-row{
+		display: flex;
+        position: relative;
+	}
+
+    .form-group-row input, select{
+        position:relative ;
+        width: 300px;
+        margin-right: 10px;
+    }
+
 </style>
 
