@@ -80,8 +80,16 @@ export default {
 
         login(){					
 			User.login(this.logindata).then(() =>{
-				localStorage.setItem("auth", "true")
-				window.location.href = 'dashboard'
+				// getUser
+				User.auth().then((result)=>{
+					if(result.data.roleid == 2){
+						localStorage.setItem("auth", "true")
+						window.location.href = 'dashboard'
+					}else{
+						this.errors = "Login as Administrator"
+					}
+				})
+				
 			}
 			).catch((err) => {
 				this.errors = err.response.data.errors[0][0]

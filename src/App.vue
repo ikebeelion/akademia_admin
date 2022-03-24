@@ -193,7 +193,7 @@ export default {
   },
   methods: {
 	getAuth(){
-            User.auth().then((result)=>{
+            User.auth().then((result)=>{				
                 this.user = result.data                                                                				                
 				this.getSchoolInfo()
 			}).catch(()=>{
