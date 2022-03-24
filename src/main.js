@@ -15,9 +15,6 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-axios.defaults.withCredentials = true;
-
-
 createApp(App)
 .use(router)
 .use($)

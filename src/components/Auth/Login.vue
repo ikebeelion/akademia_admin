@@ -8,7 +8,7 @@
 							<h1>Akademia</h1>
             			</span>
 					<h2>Admin Login</h2>
-					{{ this.errors }}
+					<p style="color:red">{{errors}}</p>
 					<form>
 						<input @input="checkInput" type="text" v-model="logindata.username" class="input-box" name="email" placeholder="Your Username" autocomplete="" required> 
 						<input @input="checkInput" type="password" v-model="logindata.password" class="input-box" name="password" placeholder="Your Password" required>
@@ -17,14 +17,19 @@
 					</form>
                                            
 
-					<!-- <button type="button" class="btn" @click="openRegister()">I'm new here</button> -->
+					<button style="background:blue" type="button" class="btn" @click="openRegister()">I'm new here</button>
 					<a href="">Forgot password?</a>
 
 					<button type="button" class="btn" @click="openRegister()">
-					<i class="fas fa-copyright"> </i> 2022 Next It-Services
+					<i style="margin-top:25px" class="fas fa-copyright"> </i> 2022 Next It-Services
 					</button>
 
 
+				</div>
+				<div class="card-back" id="card">
+					<h2>Register</h2>
+					<new-registration/>
+										
 				</div>
 			</div>
 		</div>
@@ -32,7 +37,9 @@
 </template>
 <script>
 import User from '../../apis/User'
+import newRegistration from './Register.vue'
 export default {
+	components:{newRegistration},
 	data() {
         return {
             checkFilled:true,
@@ -54,7 +61,18 @@ export default {
                 this.checkFilled = true
             }
         },
-		
+
+		openRegister(){
+			var card = document.getElementById('card')
+			card.style.transform = 'rotateY(-180deg)'
+		},
+
+		openLogin(){
+			var card = document.getElementById('card')
+
+			card.style.transform = 'rotateY(0deg)'
+		},
+
         login(){					
 			User.login(this.logindata).then(() =>{
 				localStorage.setItem("auth", "true")
@@ -71,6 +89,7 @@ export default {
 </script>
 
 <style scoped>
+
     *{
 	margin: 0;
 	padding: 0;
@@ -231,3 +250,4 @@ span{
 	width: 100px;
 }
 </style>
+
