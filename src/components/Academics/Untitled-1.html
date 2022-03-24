@@ -1,0 +1,161 @@
+
+        
+        <!-- WARD DETAIL MODAL -->
+        <div id="ward-detail" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="transaction-detailModalLabel">My Ward</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>Student Image</label>
+                                                                <img :src="'images/students/'+this.newStudent.photo" alt="parent photo" height="150px" width="150px">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>Firstname</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.firstname" type="text" placeholder="...">
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label>Lastname</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.lastname" type="text" placeholder="...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>Othername(s)</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.othernames" type="text" placeholder="...">
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label>Date of Birth</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.dob" type="date" placeholder="...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>Gender</label>
+                                                            <select readonly v-model="newStudent.genderid" @change="checkInput">
+                                                                    <option value="male">Male</option>
+                                                                    <option value="female">Female</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                    <label>Religion</label>
+                                                            <select readonly v-model="newStudent.religion" @change="checkInput">
+                                                                    <option value="christian">Christian</option>
+                                                                    <option value="islam">Islam</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                            <label>Nationality <span class="text-danger">*</span></label>
+                                                            <select
+                                                                readonly
+                                                               
+                                                                v-model="newStudent.nationalityid"
+                                                                @change="getStateofO(newStudent.nationalityid)"
+
+                                                            ><option v-for="country in countries"  :value="country.id" :key="country.id"> {{ country.country   }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>State of Origin <span class="text-danger">*</span></label>
+                                                            <select
+                                                            readonly
+                                                           
+                                                            v-model="newStudent.stateoforiginid"
+                                                            @change="checkInput"
+                                                            ><option v-for="statee in stateofo" :value="statee.id" :key="statee.id" >{{statee.state}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>L.G.A</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.local_govt_area" type="text" placeholder="...">
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label>Address</label>
+                                                                <textarea readonly @input="checkInput" v-model="newStudent.address" cols="6" rows="2" placeholder="..."></textarea>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <div class="col-lg-4 mt-2">
+                                                            <label>Country </label>
+                                                            <select
+                                                            readonly
+                                                           
+                                                            v-model="newStudent.countryid"
+                                                            @change="getState(newStudent.countryid)"
+                                                            ><option  v-for="country in countries" :value="country.id" :key="country.id"> {{ country.country   }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-4 mt-2">
+                                                            <label>State</label>
+                                                            <select
+                                                            readonly
+                                                           
+                                                            v-model="newStudent.stateid"
+                                                            @change="getCity(newStudent.stateid)">
+                                                                    <option>Select</option>
+                                                                    <option readonly v-for="statee in states" :value="statee.id" :key="statee.id">{{statee.state}}</option>
+                                                            </select>
+
+                                                        </div>
+                                                       <div class="col-lg-4 mt-2">
+                                                            <label>City</label>
+                                                            <select
+                                                            readonly
+                                                               
+                                                                v-model="newStudent.cityid"
+                                                                @change="checkInput">
+                                                                    <option readonly v-for="city in cities" :value="city.id" :key="city.id" >{{ city.city }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group-row">
+                                                        <div class="form-group">
+                                                                <label>Enrollement Date</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.enrollmentdate" type="date" placeholder="...">
+                                                        </div>
+                                                         <div class="form-group">
+                                                                <label>Contact Email Address</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.contactemail" type="email" placeholder="...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                          <div class="form-group">
+                                                                <label>Contact Telephone</label>
+                                                                <input readonly @input="checkInput" v-model="newStudent.contacttel" type="text" placeholder="...">
+                                                        </div>
+                                                    <div class="form-group">
+                                                           <label class="form-label ">Class Group</label>
+                                                            <select
+                                                               
+                                                                v-model="newStudent.yearid"
+                                                                @change="checkInput"
+                                                                readonly
+                                                                >
+                                                                <option>Select</option>
+                                                                <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                            </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <!-- END WARD DETAIL MODAL -->

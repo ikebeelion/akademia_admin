@@ -1,4 +1,25 @@
-import { createApp } from 'vue'
+import { createApp} from 'vue'
 import App from './App.vue'
+// import Login from './Login.vue'
+import Swal from 'sweetalert2'
+import $ from 'jquery'
+import 'datatables.net-dt/js/dataTables.dataTables'
+import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import router from './routes'
+window.Vue = require('vue').default;
+window.swal = Swal
+window.$ = $
 
-createApp(App).mount('#app')
+window.axios = require('axios');
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+axios.defaults.withCredentials = true;
+
+
+createApp(App)
+.use(router)
+.use($)
+.mount('#app')
+
