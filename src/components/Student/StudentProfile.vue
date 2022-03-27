@@ -243,7 +243,8 @@ export default {
                 studentuserid:null,
                 profileid:null,
                 studentClassRoom:null,
-                selectedid:null
+                selectedid:null,
+
             }
     },
 
@@ -251,6 +252,7 @@ export default {
         studentProfile(){
             this.createProfile = !this.createProfile            
             this.assClassRoom = false
+            this.updateMode = false
         },
         nextStep(){
             if(this.updateMode == true){

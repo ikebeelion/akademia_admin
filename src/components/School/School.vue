@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label >School Telephone</label>
-                        <input  @input="checkTelInput" v-model="schoolProfile.schooltel" type="text" placeholder="...">
+                        <input @input="checkInput" v-model="schoolProfile.schooltel" type="text" placeholder="...">
                     </div>                                                    
                 </div>
                 <div class="form-group-row">
@@ -183,8 +183,7 @@ import Swal from 'sweetalert2'
             User.auth().then((result)=>{
                 this.user = result.data                  
                 this.getCountry()    
-                this.getState(this.schoolProfile.countryid) 
-                this.getCity(this.schoolProfile.stateid)
+                
                 this.getSchoolInfo()                                
             }).catch(()=>{
 				this.$router.push('/')
