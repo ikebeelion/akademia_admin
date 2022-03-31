@@ -121,6 +121,14 @@
 						<span class="title">Result Domains</span>
 					</router-link>
 				</li>
+				<li>		
+					<router-link @click="closeToggle" to="/promote" active-class="activeLink">
+						<span class="icon"> 
+							<i class="fas fa-arrow-circle-right" aria-hidden="true"></i>
+						</span>
+						<span class="title">Promote Students</span>
+					</router-link>
+				</li>
 				<!-- <li>		
 					<router-link @click="closeToggle" to="/pastoral" active-class="activeLink">
 						<span class="icon"><i class="fas fa-house"></i> </span>

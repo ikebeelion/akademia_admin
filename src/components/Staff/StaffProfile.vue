@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Date of Appointment</label>
-                                <input  @input="checkInput" v-model="newStaff.appointment_date" type="date" placeholder="...">
+                                <input  @input="checkInput" v-model="newStaff.appointment_date" type="month" placeholder="...">
                             </div> 
                     </div>                                                   
                 <div class="form-group-row">
@@ -186,9 +186,9 @@
             </section>
             <center style="margin-bottom:20px">
                 <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
-                <button @click.prevent="nextStep" v-if="this.step != this.totalsteps && this.checkFilled == false">Next</button>
+                <button @click.prevent="nextStep" v-if="this.step != this.totalsteps">Next</button>
                 <button @click.prevent="addStaff" v-if="this.step == this.totalsteps && this.updateMode == false">Add New staff</button>
-                <button @click.prevent="updateStaff" v-if="this.step == this.totalsteps && this.checkFilled == false && this.updateMode == true">Update staff</button>
+                <button @click.prevent="updateStaff" v-if="this.step == this.totalsteps && this.updateMode == true">Update staff</button>
             </center>
         </section>
          <section v-if="employmentHistory">
@@ -271,7 +271,7 @@ export default {
     components:{AssignSubject, AssignClassRoom, Employment},
     data() {
         return {
-                checkFilled:true,
+                checkFilled:false,
                 createProfile:false,
                 employmentHistory:false,                
                 assignSubject:false,                
@@ -338,6 +338,7 @@ export default {
             this.createProfile = !this.createProfile
             this.assignSubject = false
             this.employmentHistory = false
+            this.updateMode = false
             this.newStaff.title = ""
             this.newStaff.appointment_date = ""
             this.newStaff.firstname = ""
@@ -360,6 +361,7 @@ export default {
             this.profileid = ""
             this.staffuserid = ""
             this.newStaff.staff_type = ""
+            this.step = 1
         },
         nextStep(){
             if(this.updateMode == true){
@@ -370,18 +372,18 @@ export default {
             this.step++
         },
         checkInput(){
-            if(this.step == 1 && this.newStaff.title !="" && this.newStaff.firstname != "" && this.newStaff.lastname != "" && this.newStaff.genderid != "" && this.newStaff.rankid != "" && this.newStaff.staff_type != "")
-            {
-                this.checkFilled = false
-            }else if(this.step == 2 && this.newStaff.local_govt_area != ""  && this.newStaff.nationalityid != "" && this.newStaff.stateoforiginid){
-                this.checkFilled = false
-            }else if(this.step == 3 && this.newStaff.contactemail != "" && this.newStaff.contacttel != ""){
-                this.checkFilled = false
-            }else if(this.step == this.totalsteps){
-                this.checkFilled = false
-            }else{
-                this.checkFilled = true
-            }
+            // if(this.step == 1 && this.newStaff.title !="" && this.newStaff.firstname != "" && this.newStaff.lastname != "" && this.newStaff.genderid != "" && this.newStaff.rankid != "" && this.newStaff.staff_type != "")
+            // {
+            //     this.checkFilled = false
+            // }else if(this.step == 2 && this.newStaff.local_govt_area != ""  && this.newStaff.nationalityid != "" && this.newStaff.stateoforiginid){
+            //     this.checkFilled = false
+            // }else if(this.step == 3 && this.newStaff.contactemail != "" && this.newStaff.contacttel != ""){
+            //     this.checkFilled = false
+            // }else if(this.step == this.totalsteps){
+            //     this.checkFilled = false
+            // }else{
+            //     this.checkFilled = true
+            // }
         },
         prevStep(){
             this.checkInput()
@@ -551,9 +553,10 @@ export default {
             })
         },
         updateStaff(){
-            this.checkTelInput()
+            // this.checkTelInput()
             Staff.updateStaff(this.profileid, this.newStaff).then(() => {
                  this.getStaff()
+                 this.staffProfile()
                  this.reloadKey++
                     Swal.fire({
                     position: 'top-end',

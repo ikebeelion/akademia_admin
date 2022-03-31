@@ -46,6 +46,10 @@ export default {
         },
         getStudentSingle(studentid){
             return Api.get('/user/'+studentid)
+        },
+
+        getRoomGroup(id){
+            return Api.get('/classrmgroup/'+id)
         }
 
 

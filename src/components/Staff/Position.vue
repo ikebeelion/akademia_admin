@@ -21,7 +21,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody :key="tableKey">
                     <tr v-for="rank in ranks" :key="rank.id">
                         <td><center>{{rank.rank}}</center></td>
                         <td>
@@ -56,7 +56,8 @@ export default {
                 updateMode:false,
                 ranks:[],
                 user:null,
-                rankid:null
+                rankid:null,
+                tableKey:0
 
             }
     },
@@ -115,6 +116,7 @@ export default {
                     timer: 3000
                 })
                 this.newRank.rank = ""
+                this.tableKey++
             }).catch(() => {
                   Swal.fire({
                     position: 'top-end',

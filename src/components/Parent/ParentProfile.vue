@@ -153,9 +153,9 @@
       
         <center>
             <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
-            <button @click.prevent="nextStep" v-if="this.step != this.totalsteps && this.checkFilled == false">Next</button>
-            <button @click.prevent="addParent" v-if="this.step == this.totalsteps && this.updateMode == false">Add New parent</button>
-            <button @click.prevent="checkTelInput" v-if="this.step == this.totalsteps && this.checkFilled == false && this.updateMode == true">Update Parent</button>
+            <button @click.prevent="nextStep" v-if="this.step != this.totalsteps ">Next</button>
+            <button @click.prevent="addParent" v-if="this.step == this.totalsteps && this.updateMode == false" >Add New parent</button>
+            <button @click.prevent="checkTelInput" v-if="this.step == this.totalsteps  && this.updateMode == true">Update Parent</button>
 
         </center>
         </section>
@@ -264,7 +264,7 @@ import Parent from '../../apis/Parent.js'
 export default {
     data() {
         return {
-                checkFilled:true,
+                checkFilled:false,
                 createProfile:true,
                 assWard:false,
                 newParent:{
@@ -335,6 +335,28 @@ export default {
     methods: {
         parentProfile(){
             this.createProfile = !this.createProfile            
+            this.updateMode = false
+            this.assWard = false  
+            this.step = 1  
+            this.newStudent.firstname = ""
+                    this.newStudent.lastname = ""
+                    this.newStudent.othernames = ""
+                    this.newStudent.dob = ""
+                    this.newStudent.genderid = ""
+                    this.newStudent.religion = ""
+                    this.newStudent.nationalityid = ""
+                    this.newStudent.stateoforiginid = ""
+                    this.newStudent.local_govt_area = ""
+                    this.newStudent.address = ""
+                    this.newStudent.countryid = ""
+                    this.newStudent.stateid = ""
+                    this.newStudent.cityid = ""
+                    this.newStudent.enrollmentdate = ""
+                    this.newStudent.contactemail = ""
+                    this.newStudent.contacttel = ""
+                    this.newStudent.yearid = ""
+                    this.newStudent.photo = ""
+                    this.profileid = ""
         },
         nextStep(){
             if(this.updateMode == true){
@@ -345,21 +367,21 @@ export default {
             this.step++
         },
         checkInput(){
-            if(this.step == 1 && this.newParent.title && this.newParent.firstname != null && this.newParent.lastname != null && this.newParent.dob != null && this.newParent.genderid != null && this.newParent.religion != null)
-            {
-                this.checkFilled = false
-            }else if(this.step == 2 && this.newParent.countryid != null && this.newParent.stateid != null && this.newParent.cityid != null && this.newParent.local_govt_area != null && this.newParent.address != null && this.newParent.nationalityid != null && this.newParent.stateoforiginid){
-                this.checkFilled = false
-            }else if(this.step == 3 && this.newParent.contactemail != null && this.newParent.contacttel != null){
-                this.checkFilled = false
-            }else if(this.step == this.totalsteps){
-                this.checkFilled = false
-            }else{
-                this.checkFilled = true
-            }
+            // if(this.step == 1 && this.newParent.title && this.newParent.firstname != null && this.newParent.lastname != null && this.newParent.dob != null && this.newParent.genderid != null && this.newParent.religion != null)
+            // {
+            //     this.checkFilled = false
+            // }else if(this.step == 2 && this.newParent.countryid != null && this.newParent.stateid != null && this.newParent.cityid != null && this.newParent.local_govt_area != null && this.newParent.address != null && this.newParent.nationalityid != null && this.newParent.stateoforiginid){
+            //     this.checkFilled = false
+            // }else if(this.step == 3 && this.newParent.contactemail != null && this.newParent.contacttel != null){
+            //     this.checkFilled = false
+            // }else if(this.step == this.totalsteps){
+            //     this.checkFilled = false
+            // }else{
+            //     this.checkFilled = true
+            // }
         },
         prevStep(){
-            this.checkInput()
+            // this.checkInput()
             this.step--
         },
         getCountry(){

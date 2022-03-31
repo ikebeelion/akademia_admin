@@ -21,6 +21,7 @@ import ResultType from './components/Academics/ResultType.vue'
 import TimeTable from './components/Academics/TimeTable.vue'
 import Position from './components/Staff/Position.vue'
 import ApproveTable from './components/Academics/ApproveTable'
+import Promote from './components/Academics/Promote.vue'
 
 const router = createRouter({
     history: createWebHistory(),    
@@ -47,6 +48,7 @@ const router = createRouter({
         {path:'/resulttype', name:'resulttype', component:ResultType},
         {path:'/timetable', name:'timetable', component:TimeTable},
         {path:'/approve-table', name:'approvetable', component:ApproveTable},                       
+        {path:'/promote', name:'promote', component:Promote},                       
     ]
 })
 

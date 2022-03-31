@@ -23,21 +23,21 @@
                     <div class="form-group-row">
                         <div class="form-group">
                             <label>Firstname</label>
-                            <input @input="checkInput" v-model="newStudent.firstname" type="text" placeholder="...">
+                            <input @change="checkInput" v-model="newStudent.firstname" type="text" placeholder="...">
                         </div>
                         <div class="form-group">
                             <label>Lastname</label>
-                            <input @input="checkInput" v-model="newStudent.lastname" type="text" placeholder="...">
+                            <input @change="checkInput" v-model="newStudent.lastname" type="text" placeholder="...">
                         </div>
                         <div class="form-group">
                             <label>Othername(s)</label>
-                            <input @input="checkInput" v-model="newStudent.othernames" type="text" placeholder="...">
+                            <input @change="checkInput" v-model="newStudent.othernames" type="text" placeholder="...">
                         </div>
                         </div>
                         <div class="form-group-row">
                                     <div class="form-group">
                                         <label>Date of Birth</label>
-                                        <input @input="checkInput" v-model="newStudent.dob" type="date" placeholder="...">
+                                        <input @change="checkInput" v-model="newStudent.dob" type="date" placeholder="...">
                                     </div>
                                     <div class="form-group">
                                         <label>Gender</label>
@@ -55,7 +55,9 @@
                                             <option value="islam">Islam</option>
                                         </select>
                                     </div>
-                        </div>                             
+                                    
+                        </div>      
+                                             
                 </div>
                 <div v-if="step==2" >
                     <div class="form-group-row">
@@ -75,13 +77,13 @@
                         </div>
                         <div class="form-group">
                             <label>L.G.A</label>
-                            <input @input="checkInput" v-model="newStudent.local_govt_area" type="text" placeholder="...">
+                            <input @change="checkInput" v-model="newStudent.local_govt_area" type="text" placeholder="...">
                         </div>
                     </div>
                     <div class="form-group-row">
                         <div class="form-group">
                             <label>Address</label>
-                            <textarea @input="checkInput" v-model="newStudent.address" cols="100" rows="2" placeholder="..."></textarea>
+                            <textarea @change="checkInput" v-model="newStudent.address" cols="100" rows="2" placeholder="..."></textarea>
                         </div>
                     </div>
                     <div class="form-group-row">
@@ -112,30 +114,42 @@
                 <div class="form-group-row">
                     <div class="form-group">
                         <label>Enrollement Date</label>
-                        <input @input="checkInput" v-model="newStudent.enrollmentdate" type="date" placeholder="...">
+                        <input @change="checkInput" v-model="newStudent.enrollmentdate" type="month" placeholder="...">
                     </div>                                    
                     <div class="form-group">
                         <label>Contact Email Address</label>
-                        <input @input="checkInput" v-model="newStudent.contactemail" type="email" placeholder="...">
+                        <input @change="checkInput" v-model="newStudent.contactemail" type="email" placeholder="...">
                     </div>
                 </div>
                 <div class="form-group-row">
                     <div class="form-group">
                         <label>Contact Telephone</label>
-                        <input @input="checkInput" v-model="newStudent.contacttel" type="text" placeholder="...">
+                        <input @change="checkInput" v-model="newStudent.contacttel" type="text" placeholder="...">
                     </div>
                     <div class="form-group">
                         <label>Class Group</label>
-                        <select v-model="newStudent.yearid" @change="checkInput">
+                        <select v-model="newStudent.yearid" @change="getRoomGroups()">
                             <option value="">Select Class Group</option>
                             <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                                                        <div class="form-group">
+                                        <label>Classroom</label>
+                                        <select v-model="newStudent.classroom" >
+                                            <option v-for="group in classrooms" :key="group.id" :value="group.id">
+                                                {{ group.classgroupname }} {{ group.classroom }}
+                                            </option>
+                                        </select>
+                                    </div> 
+                    
+                </div>
+                 <div class="form-group-row">
+                 <div class="form-group">
                         <label>Student Image  <small style="color:red">maximum file upload size(2mb)</small></label>    
                         <input @change="pickFile" type="file" placeholder="...">
                     </div>
-                </div>
+   
+                            </div> 
             </div>
                 <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
                 <button @click.prevent="nextStep" v-if="this.step != this.totalsteps && this.checkFilled == false">Next</button>
@@ -163,7 +177,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody :key="tableKey">
                     <tr v-for="student in students" :key="student.id">
                         <td>{{student.firstname}}</td>
                         <td>{{student.lastname}}</td>
@@ -204,6 +218,7 @@ export default {
     data() {
         return {
                 checkFilled:true,
+                classrooms:null,
                 createProfile:true,
                 assClassRoom:false,
                 newStudent:{
@@ -220,13 +235,13 @@ export default {
                     countryid:"",
                     stateid:"",
                     cityid:"",
-
                     enrollmentdate:"",
                     contactemail:"",
                     contacttel:"",
                     yearid:"",
                     photo:"",
-                    branchid:""
+                    branchid:"",
+                    classroom:""
 
                 },
                 updateMode:false,
@@ -244,15 +259,44 @@ export default {
                 profileid:null,
                 studentClassRoom:null,
                 selectedid:null,
+                tableKey:0,
 
             }
     },
 
     methods: {
+        getRoomGroups(){
+            Student.getRoomGroup(this.newStudent.yearid).then((result) => {
+                this.classrooms = result.data
+            }).catch((err) => {
+            
+            });
+        },
         studentProfile(){
             this.createProfile = !this.createProfile            
             this.assClassRoom = false
             this.updateMode = false
+             this.newStudent.firstname =  null
+                    this.newStudent.lastname =  null
+                    this.newStudent.othernames =  null
+                    this.newStudent.dob =  null
+                    this.newStudent.genderid =  null
+                    this.newStudent.religion =  null
+                    this.newStudent.nationalityid =  null
+                    this.newStudent.stateoforiginid =  null
+                    this.newStudent.local_govt_area =  null
+                    this.newStudent.address =  null
+                    this.newStudent.countryid =  null
+                    this.newStudent.stateid =  null
+                    this.newStudent.cityid =  null
+                    this.newStudent.enrollmentdate =  null
+                    this.newStudent.contactemail =  null
+                    this.newStudent.contacttel = null
+                    this.newStudent.yearid =  null
+                    this.newStudent.photo =  null
+                    this.profileid =  null
+                    this.studentuserid = null
+                    this.step = 1
         },
         nextStep(){
             if(this.updateMode == true){
@@ -351,6 +395,7 @@ export default {
             this.checkTelInput()
             Student.addStudent(this.newStudent).then(() => {
                   this.getStudents()
+                  this.tableKey++
                     Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -379,6 +424,7 @@ export default {
                     this.newStudent.photo =  null
                     this.profileid =  null
                     this.studentuserid = null
+                    this.step = 1
             }).catch(() => {
                     Swal.fire({
                     position: 'top-end',
@@ -409,6 +455,7 @@ export default {
                     this.newStudent.contactemail = result.data[0]['contactemail']
                     this.newStudent.contacttel = result.data[0]['contacttel']
                     this.newStudent.yearid = result.data[0]['yearid']
+                    this.newStudent.classroom = result.data[0]['classid']
                     this.newStudent.photo = result.data[0]['photo']
                     this.profileid = result.data[0]['id']
                     this.studentuserid = result.data[0]['studentuseraccountid']
@@ -449,6 +496,7 @@ export default {
                     this.newStudent.contactemail =  null
                     this.newStudent.contacttel = null
                     this.newStudent.yearid =  null
+                    this.newStudent.classroom = null
                     this.newStudent.photo =  null
                     this.profileid =  null
                     this.studentuserid = null

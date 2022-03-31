@@ -1,6 +1,6 @@
 <template>
     <div>
-    <form>
+    <!-- <form> -->
 		<p style="color:red">{{errors}}</p>
             <div v-if="this.step==1">
                 <div class="mb-3">
@@ -165,7 +165,7 @@
                                                     <button style="width:100px; background:green" class="btn" v-if="this.step == this.totalsteps" type="submit" @click="submitData">  Register</button>
                                                 </center>
                       
-	</form>         
+	<!-- </form>          -->
     </div>
 </template>
 
@@ -258,7 +258,6 @@ export default {
         submitData(){
             this.submit = [this.schooldata, this.useraccessData, this.branchData];
             Register.submitData(this.submit).then((result) => {
-                console.log('loggedin')
                 window.location.href = '/'
             }).catch((err) => {
                 this.errors = err.response.data.errors[0][0]
@@ -429,6 +428,10 @@ span{
 label{
 text-align: center;
 font-size: 12px;
+}
+
+select option{
+    color: black;
 }
 .card a{
 	display: block;
