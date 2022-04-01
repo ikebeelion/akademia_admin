@@ -172,6 +172,9 @@
 <script>
 import Register from '../../apis/Register'
 export default {    
+    props:{
+        countries:null
+    },
     data() {
         return {
             totalsteps:5,
@@ -204,7 +207,7 @@ export default {
             },
             submit:[],
             errors:null,
-            countries:null,
+            // countries:null,
             states:null,
             cities:null
 
@@ -226,11 +229,7 @@ export default {
                 this.checkFilled = true
             }
         },
-        getCountry(){
-            Register.getCountry().then((result) => {
-                this.countries = result.data
-            })
-        },
+       
         getState(countryid){
             Register.getState(countryid).then((result) => {
                 this.states = result.data

@@ -28,7 +28,7 @@
 				</div>
 				<div class="card-back" id="card">
 					<h2>Register</h2>
-					<new-registration/>
+					<new-registration :countries="countries"/>
 					<a href="#" style="align-items:center; margin-top:10px" type="button" class="btn" @click="openLogin()">
 					I have an account 
 					</a>
@@ -43,6 +43,7 @@
 <script>
 import User from '../../apis/User'
 import newRegistration from './Register.vue'
+import Register from '../../apis/Register.js'
 export default {
 	components:{newRegistration},
 	data() {
@@ -55,6 +56,7 @@ export default {
             },
 			user:null,
             errors:null,
+			countries:null
         }
     },
     methods: {
@@ -70,7 +72,13 @@ export default {
 		openRegister(){
 			var card = document.getElementById('card')
 			card.style.transform = 'rotateY(-180deg)'
+			this.getCountry()
 		},
+		getCountry(){
+            Register.getCountry().then((result) => {
+                this.countries = result.data
+            })
+        },
 
 		openLogin(){
 			var card = document.getElementById('card')
