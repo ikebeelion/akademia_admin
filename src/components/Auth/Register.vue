@@ -249,9 +249,16 @@ export default {
         nextStep(){
             this.checkFilled = true
             this.step = this.step + 1
+
+            if(this.step == 2){
+                this.getCountry()
+            }
         },
         prevStep(){
             this.step = this.step - 1
+            if(this.step == 2){
+                this.getCountry()
+            }
         },
         submitData(){
             this.submit = [this.schooldata, this.useraccessData, this.branchData];
@@ -273,10 +280,8 @@ export default {
     },
 
 
-    created() {
-        this.getCountry()
+    created() {        
         this.nextStep()
-
     },
 
 
