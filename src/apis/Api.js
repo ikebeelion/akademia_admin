@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let Api = axios.create({
-    baseURL: "/api"
+    baseURL: "https://akademiaapi.herokuapp.com/api"
 })
 
 Api.defaults.withCredentials = true
