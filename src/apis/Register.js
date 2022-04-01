@@ -1,16 +1,21 @@
 import Api from "./Api"
+import Csrf from "./Csrf"
 
 export default {
-    getCountry(){
+    async getCountry(){
+        await Csrf.getCookie()
         return Api.get('/country/')
     },
-    getState(countryid){
+    async getState(countryid){
+        await Csrf.getCookie()
        return Api.get('/state/'+countryid)
     },
-    getCity(stateid){
+    async getCity(stateid){
+        await Csrf.getCookie()
         return Api.get('/city/'+stateid) 
     },
-    submitData(form){
+    async submitData(form){
+        await Csrf.getCookie()
         return Api.post('/schregister/', form)
         
     },
