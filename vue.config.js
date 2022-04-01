@@ -1,5 +1,5 @@
 module.exports = {
         devServer: {
-            proxy: 'https://akademiaapi.herokuapp.com/',
+            proxy: 'https://akademiaapi.herokuapp.com',
         }
 }
