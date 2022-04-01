@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let Api = axios.create({
-    baseURL: "https://akademiaadmin.vercel.app/api"
+    baseURL: "/api"
 })
 
 Api.defaults.withCredentials = true
