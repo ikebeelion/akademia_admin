@@ -1,5 +1,5 @@
-module.exports = {
-        devServer: {
-            proxy: 'https://akademiaapi.herokuapp.com',
-        }
-}
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  
+})
