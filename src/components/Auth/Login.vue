@@ -53,7 +53,7 @@ export default {
                 username:null,
                 password:null,
             },
-			// user:null,
+			user:null,
             errors:null,
         }
     },

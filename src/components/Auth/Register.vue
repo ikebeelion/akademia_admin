@@ -229,9 +229,7 @@ export default {
         getCountry(){
             Register.getCountry().then((result) => {
                 this.countries = result.data
-            }).catch((err) => {
-
-            });
+            })
         },
         getState(countryid){
             Register.getState(countryid).then((result) => {
