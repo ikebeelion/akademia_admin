@@ -18,6 +18,8 @@
     "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
+    "nginx": "^1.0.6",
+    "nginx-conf": "^2.0.0",
     "serve-static": "^1.14.2",
     "sweetalert2": "^11.4.4",
     "vue": "^3.2.13",
