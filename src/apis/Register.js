@@ -2,7 +2,7 @@ import Api from "./Api"
 
 export default {
     getCountry(){
-        return Api.get('/country/')
+        return Api.get('/country')
     },
     getState(countryid){
        return Api.get('/state/'+countryid)
