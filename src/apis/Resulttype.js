@@ -8,7 +8,7 @@ export default{
         return Api.get('/singletype/'+id)
     },
     addType(form){
-        return Api.post('/type/store/', form)
+        return Api.post('/type/store', form)
     },
     updateType(id, form){
         return Api.post('/updateType/'+id, form)

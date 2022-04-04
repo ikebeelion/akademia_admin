@@ -5,7 +5,7 @@ export default {
         return Api.get('/classGroups/'+branchid)   
     },
     getCountry(){
-        return Api.get('/country/')
+        return Api.get('/country')
     },
         getState(countryid){
             return Api.get('/state/'+countryid)
@@ -20,7 +20,7 @@ export default {
             return Api.get('/all-students/'+branchid)
         },
         addStudent(form){
-            return Api.post('/student/store/', form)
+            return Api.post('/student/store', form)
         },
         getSingleStudent(id){
             return Api.get('/student/'+id)
@@ -35,10 +35,10 @@ export default {
             return Api.get('/studentClassroom/'+studentid)
         },
         uploadImage(formData, config){
-            return Api.post('/studentImage/', formData, config)
+            return Api.post('/studentImage', formData, config)
         },
         addStudentToClassRoom(classdetails){
-            return Api.post('/studentclassroom/', classdetails)
+            return Api.post('/studentclassroom', classdetails)
         },
         yearclassroom(yearid){
             return Api.get('/yearclassroom/'+yearid)

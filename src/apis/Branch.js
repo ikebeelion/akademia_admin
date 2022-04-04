@@ -14,7 +14,7 @@ export default{
         return Api.get('/branch/'+schoolid)
     },
     addBranch(form){
-        return Api.post('/branch/store/', form)
+        return Api.post('/branch/store', form)
     },
     getSingleBranch(id){
         return Api.get('/singlebranch/'+id)

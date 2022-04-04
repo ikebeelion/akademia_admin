@@ -2,7 +2,7 @@ import Api from './Api'
 
 export default{ 
     getCountry(){
-        return Api.get('/country/')
+        return Api.get('/country')
     },
     getState(countryid){
         return Api.get('/state/'+countryid)
@@ -26,7 +26,7 @@ export default{
         return Api.get('/all-parents/'+branchid)
     },
     addParent(form){
-        return Api.post('/parent/store/', form)
+        return Api.post('/parent/store', form)
     },
     getSingleParent(id){
         return Api.get('/parent/'+id)

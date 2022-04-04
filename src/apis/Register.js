@@ -11,7 +11,7 @@ export default {
         return Api.get('/city/'+stateid) 
     },
     submitData(form){
-        return Api.post('/schregister/', form)
+        return Api.post('/schregister', form)
         
     },
 }

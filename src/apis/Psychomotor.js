@@ -8,7 +8,7 @@ export default {
         return Api.get('/singlepsych/'+id)
     },
     addPsychomotor(form){
-        return Api.post('/psychomotors/store/', form)
+        return Api.post('/psychomotors/store', form)
     },
     updatePsych(id, form){
         return Api.put('/updatepsych/'+id, form)

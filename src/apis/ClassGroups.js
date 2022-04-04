@@ -8,7 +8,7 @@ export default{
         return Api.get('/singlegroup/'+id)
     },
     addClassGroup(form){
-        return Api.post('/classGroups/store/', form)
+        return Api.post('/classGroups/store', form)
     },
     updateGroup(id, form){
         return Api.put('/updateGroup/'+id, form)

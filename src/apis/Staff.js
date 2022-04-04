@@ -68,7 +68,7 @@ export default{
         return Api.get('/emphistory/'+id)
     },
     addemployment(form){
-        return Api.post('/addemployment/', form)
+        return Api.post('/addemployment', form)
     },
     getsingleemployment(id){
         return Api.get('/getSingleEmployment/'+id)
@@ -80,7 +80,7 @@ export default{
         return Api.delete('/deleteEmployment/'+id)
     },
     uploadImage(formData, config){
-        return Api.post('/uploadStaffImage/', formData, config )
+        return Api.post('/uploadStaffImage', formData, config )
     }
     
 

@@ -20,6 +20,6 @@ export default{
         return Api.put('/school/'+schoolid, form)
     },
     uploadImage(formData, config){
-        return Api.post('/submitImage/', formData, config)
+        return Api.post('/submitImage', formData, config)
     }
 }

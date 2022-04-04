@@ -15,6 +15,6 @@ export default{
         return Api.get('/period/'+branchid)
     },
     saveTimeTable(form){
-        return Api.post('/timetable/store/', form)
+        return Api.post('/timetable/store', form)
     },
 }
