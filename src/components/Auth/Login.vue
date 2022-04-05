@@ -18,7 +18,7 @@
                                            
 
 					<button style="background:blue" type="button" class="btn" @click="openRegister()">I'm new here</button>
-					<a href="">Forgot password?</a>
+					<!-- <a href="">Forgot password?</a> -->
 
 					<button type="button" class="btn" @click="openRegister()">
 					<i style="margin-top:25px" class="fas fa-copyright"> </i> 2022 Next It-Services
@@ -222,6 +222,10 @@ button{
 
 .submit-btn{
 	position:  relative;
+}
+
+.submit-btn:hover{
+	background: rgb(41, 59, 216);
 }
 
 .submit-btn::after{
