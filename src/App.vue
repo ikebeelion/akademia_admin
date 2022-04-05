@@ -240,6 +240,7 @@ export default {
 		logout(){
 			User.logout().then(() => {
 				localStorage.removeItem("auth")				
+				localStorage.removeItem("token")				
 				localStorage.clear()
 				this.$router.push('/')
 			})
