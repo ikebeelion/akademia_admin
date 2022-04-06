@@ -5,7 +5,7 @@
             <button style="width:20%; margin-right:5%" @click="showSchoolData">Display School Data</button>
             <button style="width:20%; margin-bottom:5%" @click="showPrincipalData">Principal Officer Data</button>
             <div class="img-container" v-if="this.schoolProfile.schoollogo != null">
-                <img :src="'http://localhost:8000/images/school/'+this.schoolProfile.schoollogo" alt="school photo">
+                <img :src="'https://github.com/ikebeelion/akademia_api/blob/main/public/images/school/'+this.schoolProfile.schoollogo" alt="school photo">
             </div>
             <p>{{this.schoolProfile.schoolmotto}}</p>
         </center>
