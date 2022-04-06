@@ -127,6 +127,7 @@ export default {
 	font-family: sans-serif;
 	background-image: url('../../../public/login.png');
 	background-size:cover;	
+	background-position: center;
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -154,8 +155,8 @@ export default {
 	width: 100%;
 	height: 100%;
 	background-position: center;
-	background-size: cover;
-	background-image: linear-gradient(rgba(16, 16, 27, 0.8), rgba(16, 16, 27, 0.8)), url('../../../public/login.png');
+	background-size: cover;	
+	background-image: linear-gradient(#10101bec, #10101bec);
 	padding: 55px;
 	box-sizing: border-box;
 	backface-visibility: hidden;
