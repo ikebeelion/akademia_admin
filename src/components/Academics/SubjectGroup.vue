@@ -92,7 +92,7 @@ export default {
             }
         },
 
-          assignSubject(){
+        assignSubject(){
             this.$router.push('/subjects')
         },
 

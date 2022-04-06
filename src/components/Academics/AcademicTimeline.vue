@@ -51,7 +51,7 @@
                       <div class="form-group">
                             <label >Academic Year</label>
                             <select v-model="academicPeriod.yearid" @change="checkInput">
-                                <option value="">select</option>
+                                <option value="null">select</option>
                                 <option v-for="year in years" :key="year.id" :value="year.id">
                                     {{ year.year }}
                                 </option>
@@ -60,7 +60,7 @@
                         <div class="form-group">
                                 <label >Term</label>
                                 <select v-model="academicPeriod.termid" @change="checkInput">
-                                    <option value="">select</option>
+                                    <option value="null">select</option>
                                     <option v-for="term in terms" :key="term.id" :value="term.id">
                                         {{ term.term }}
                                     </option>
@@ -72,7 +72,7 @@
                     <div class="form-group">
                                 <label >Session</label>
                                 <select v-model="academicPeriod.sessionid" @change="checkInput">
-                                    <option value="">select</option>
+                                    <option value="null">select</option>
                                     <option v-for="session in sessions" :key="session.id" :value="session.id">
                                         {{ session.session }}
                                     </option>
@@ -106,7 +106,6 @@ export default {
                     session:null,
                     startdate:null,
                     enddate:null
-
                 },
                 newTerm: {
                     term:null
@@ -254,6 +253,7 @@ export default {
                      this.academicPeriod.sessionid = null
                     this.academicPeriod.termid = null
                     this.academicPeriod.yearid = null
+                    this.academicPeriod.next_resumption = null
             }).catch((err) => {
                 Swal.fire({
                         position: 'top-end',
