@@ -19,7 +19,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody :key="tableKey">
                 <tr v-for="domain in affective_domains" :key="domain.id">
                     <td><center>{{domain.affective_domain}}</center></td>
                     <td><center>
@@ -56,6 +56,7 @@ export default {
                 updateMode:false,
                 affective_domains:[],
                 user:null,
+                tableKey:0
 
             }
     },
@@ -104,6 +105,7 @@ export default {
             var post = [this.affective_domain, this.user.branchid]
             Domains.addDomain(post).then((result) => {
                 this.getDomains()
+                this.tableKey++
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -119,6 +121,7 @@ export default {
         updateDomain(){
             Domains.updateDomain(this.psychid , this.affective_domain).then((result) => {
                 this.getDomains()
+                this.tableKey++
                 Swal.fire({
                 position: 'top-end',
                     icon: 'success',
@@ -135,6 +138,7 @@ export default {
         deleteDomain(id){
              Domains.deleteDomain(id).then((result) => {
                 this.getDomains()
+                this.tableKey++
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

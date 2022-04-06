@@ -29,14 +29,14 @@
                         <p>Listed Below are all the registered Psychomotor in this school</p>
                     </center>
 
-                                            <table id="all-Psychomotors">
+                                            <table id="all-Psychomotors" >
                                                 <thead>
                                                 <tr>
                                                     <th>Class Room</th>
                                                     <th>Action</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody :key="tableKey2">
                                                 <tr v-for="psych in psychomotors" :key="psych.id">
                                                     <td><center>{{psych.psychomotor}}</center></td>
                                                     <td>
@@ -77,7 +77,8 @@ export default {
                 psychomotors:[],
                 user:null,
                 psychomotorDomain:true,
-                affectiveDomain:false
+                affectiveDomain:false,
+                tableKey2:0
             }
     },
 
@@ -133,6 +134,7 @@ export default {
             var post = [this.psychomotor, this.user.branchid]
             Psychomotor.addPsychomotor(post).then((result) => {
                 this.getPsychomotors()
+                this.tableKey2++
                 this.psychomotor.psych = ""
                 Swal.fire({
                     position: 'top-end',
@@ -148,6 +150,7 @@ export default {
         updatePsych(){
             Psychomotor.updatePsych(this.psychid , this.psychomotor).then((result) => {
                 this.getPsychomotors()
+                this.tableKey2++
                 Swal.fire({
                 position: 'top-end',
                     icon: 'success',
@@ -173,6 +176,7 @@ export default {
         deletePsych(id){
              Psychomotor.deletePsych(id).then((result) => {
                 this.getPsychomotors()
+                this.tableKey2++
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
