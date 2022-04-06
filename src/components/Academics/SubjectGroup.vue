@@ -1,5 +1,8 @@
 <template>
     <div>
+    <center>            
+            <button style="width:20%;" @click="assignSubject">View Subjects</button>
+        </center>
     <section>
         <center>
             <div class="form-group">
@@ -87,6 +90,10 @@ export default {
             }else{
                 this.checkFilled = true
             }
+        },
+
+          assignSubject(){
+            this.$router.push('/subjects')
         },
 
         getAuth(){

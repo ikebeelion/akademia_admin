@@ -27,7 +27,7 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody :key="tableKey">
                 <tr v-for="type in types" :key="type.id">
                     <td><center>{{type.resulttype}}</center></td>
                     <td><center>{{type.percentage}}</center></td>
@@ -62,7 +62,8 @@ export default {
                 updateMode:false,
                 types:[],
                 user:null,
-                rankid:null
+                rankid:null,
+                tableKey:0
 
             }
     },
@@ -115,6 +116,7 @@ export default {
             var post = [this.newType, this.user.branchid]
             ResultType.addType(post).then((result) => {
                 this.getType()
+                this.tableKey++
                 this.newType.type = ""
                 this.newType.percentage = ""
                 Swal.fire({
@@ -139,7 +141,8 @@ export default {
 
         updateType(){
             ResultType.updateType(this.rankid , this.newType).then((result) => {
-                this.getType()                
+                this.getType() 
+                this.tableKey++               
                 Swal.fire({
                 position: 'top-end',
                     icon: 'success',
@@ -157,6 +160,7 @@ export default {
         deleteType(id){
              ResultType.deleteType(id).then((result) => {
                 this.getType()
+                this.tableKey++
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

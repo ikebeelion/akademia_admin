@@ -11,7 +11,7 @@ export default{
         return Api.post('/session/store', form)
     },
     getSessions(branchid){
-        return Api.get('/academicSessions'+branchid)
+        return Api.get('/academicSessions/'+branchid)
     },
     getTerm(branchid){
         return Api.get('/terms/'+branchid)
