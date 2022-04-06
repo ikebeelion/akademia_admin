@@ -582,6 +582,7 @@ export default {
         deleteStaff(id){
             Staff.deleteStaff(+id).then(() => {
                 this.getStaff()
+                this.reloadKey++
                   Swal.fire({
                     position: 'top-end',
                     icon: 'success',
