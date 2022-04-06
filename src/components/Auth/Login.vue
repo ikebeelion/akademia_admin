@@ -90,11 +90,12 @@ export default {
 			User.login(this.logindata).then((result) =>{
 				// getUser				
 				localStorage.setItem("token", result.data['access_token'])					
+				console.log('token set')
+				window.location.href = 'dashboard'				
 				User.auth().then((result)=>{
 					console.log(result)
 					if(result.data.roleid == 2){
 						localStorage.setItem("auth", "true")						
-						window.location.href = 'dashboard'
 					}else{
 						this.errors = "Login as Administrator"
 					}
