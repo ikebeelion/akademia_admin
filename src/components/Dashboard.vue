@@ -24,7 +24,7 @@
 			<div class="card">
 				<div>
 					<div class="numbers">{{teachingStaffCount}}</div>
-					<div class="cardName">Teachers</div>
+					<div class="cardName">Teaching</div>
 				</div>
 				<div class="iconBox">
 					<i class="fas fa-chalkboard-teacher"></i>
@@ -34,7 +34,7 @@
 			<div class="card">
 				<div>
 					<div class="numbers">{{nonTeachingStaffCount}}</div>
-					<div class="cardName">Non Teachers</div>
+					<div class="cardName">Non Teaching</div>
 				</div>
 				<div class="iconBox">
 					<i class="fas fa-user-times"></i>
