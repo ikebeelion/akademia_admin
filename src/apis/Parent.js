@@ -52,5 +52,9 @@ export default{
 
     uploadImage(formData, config){
         return Api.post('/parentImage', formData, config)
+    },
+
+    updatePassword(id, form){
+        return Api.put('/updatePassword/'+id, form)
     }
 }
