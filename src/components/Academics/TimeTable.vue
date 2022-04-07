@@ -142,7 +142,7 @@ import Swal from 'sweetalert2'
 export default {    
     data() {
         return {
-                checkFilled:true,
+                checkFilled:false,
                 timetable:{
                     classRoomGroupid:"",
                     classGroupId:"",
@@ -169,11 +169,11 @@ export default {
 
     methods: {   
         checkInput(){
-            if(this.timetable.classRoomGroupid != "" || this.timetable.classGroupId !="" && this.timetable.timetabletype !="" && this.timetable.subjectid !="" && this.timetable.from
+            if(this.timetable.timetabletype !="" && this.timetable.subjectid !="" && this.timetable.from
 && this.timetable.to != "" && this.timetable.day != "" && this.timetable.date !=""){
     this.checkFilled =  false
 }else{
-    this.checkFilled = true
+    this.checkFilled = false
 }
         },
 
