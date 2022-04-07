@@ -41,7 +41,7 @@ export default{
         return Api.get('/staff/'+id)
     },
     saveSubjectAssign(allsubjectgroups){
-        return Api.post('/savesubjectassign/',allsubjectgroups)
+        return Api.post('/savesubjectassign',allsubjectgroups)
     },
     getSubjectTeacher(id){
         return Api.get('/suject_teacher/'+id)        
@@ -56,7 +56,7 @@ export default{
         return Api.get('/staff/'+id)
     },    
     saveClassRoomTeacherAssign(form){
-        return Api.post('/saveclassRoomTeacher/', form)
+        return Api.post('/saveclassRoomTeacher', form)
     },
     getClassRoomTeacher(id){
         return Api.get('/classroom_teacher/'+id)
