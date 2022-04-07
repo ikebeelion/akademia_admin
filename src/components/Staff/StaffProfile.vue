@@ -217,7 +217,7 @@
                 <div class="form-group">
                     <input type="text" v-model="newPassword.password">
                 </div>
-                <button>Update Password</button>
+                <button @click="updateUserPassword()">Update Password</button>
             </center>
         </section> 
         <section v-if="!employmentHistory">

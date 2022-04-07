@@ -159,6 +159,14 @@
 
         </center>
         </section>
+        <section v-if="updatePassword">
+            <center>
+                <div class="form-group">
+                    <input type="text" v-model="newPassword.password">
+                </div>
+                <button @click="updateUserPassword()">Update Password</button>
+            </center>
+        </section> 
         <section v-if="assWard">
             <table id="all-students">
                 <thead>
