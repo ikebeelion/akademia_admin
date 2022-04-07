@@ -214,7 +214,7 @@ export default {
           }
       },
       getClassGroupSubjects(){
-          Timetable.getClassGroupSubjects(this.timetable.classGroupId).then((result) => {
+          Timetable.getClassGroupSubjects(this.timetable.classGroupId.classid).then((result) => {
               this.subjects = result.data
           })
       },
