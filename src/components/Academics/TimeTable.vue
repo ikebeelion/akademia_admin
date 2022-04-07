@@ -17,8 +17,8 @@
                         <select v-model="timetable.academicPeriodid" @change="checkInput">
                             <option value="">select</option>
                             <option v-for="period in academicPeriods" :key="period.id"
-                            :value="{periodid:period.id, periodsession:period.session.session, periodterm: period.term.term}">
-                                {{ period.session.session }} - {{ period.term.term }}
+                            :value="{periodid:period.id, periodsession:period.session.session, periodterm: period.term}">
+                                {{ period.session.session }} - {{ period.term }}
                             </option>
                         </select>
                     </div>
