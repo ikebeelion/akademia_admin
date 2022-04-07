@@ -91,9 +91,6 @@ div.dataTables_filter input{
 	color: black;
 	border: 1px solid white;
 }
-button:disabled{
-	background:red;
-} 
 
 .navigation ul li:hover{
 	background: #2643e7;
@@ -261,8 +258,11 @@ table thead tr th:last-child{
 	cursor: pointer;
 	width: 40%;
 	border-radius: 20px;
-
 }
+button:disabled{
+	background:red;
+} 
+
 .main button:hover{
 	background-color: #062833;
 	transition: 0.5s;
