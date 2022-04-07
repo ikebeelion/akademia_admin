@@ -91,6 +91,9 @@ div.dataTables_filter input{
 	color: black;
 	border: 1px solid white;
 }
+button:disabled{
+	background:red;
+} 
 
 .navigation ul li:hover{
 	background: #2643e7;
