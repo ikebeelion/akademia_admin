@@ -211,7 +211,15 @@
                 :classroomgroups="classroomgroups"
                 :allclassroomgroups="allclassroomgroups"
             />
-        </section>       
+        </section>      
+         <section v-if="updatePassword">
+            <center>
+                <div class="form-group">
+                    <input type="text" v-model="newPassword.password">
+                </div>
+                <button>Update Password</button>
+            </center>
+        </section> 
         <section v-if="!employmentHistory">
             <h1 class="card-title">All Staff</h1>
                 <center>
@@ -251,11 +259,15 @@
                                 <button style="width:50px; background:black" @click.prevent="Employment(staff.id)" data-toggle="tooltip" data-placement="top" title="Add Employment History">
                                     <i class="fas fa-file-archive" aria-hidden="true"></i>
                                 </button>
+                                <button style="width:50px; background:purple" @click.prevent="getUser(staff.id)" data-toggle="tooltip" data-placement="top" title="update Password">
+                                    <i class="fas fa-key" aria-hidden="true"></i>
+                                </button>
                             </td>
                             </tr>
                         </tbody>
                     </table>
         </section>
+       
        
     </div>
 </template>
@@ -276,6 +288,11 @@ export default {
                 employmentHistory:false,                
                 assignSubject:false,                
                 assignClassroom:false,
+                updatePassword:false,
+                newPassword:{
+                    'user':"",
+                    'password':""
+                },
                 newStaff:{
                     title:"",
                     firstname:"",
@@ -334,11 +351,31 @@ export default {
     },
 
     methods: {
+        getUser(id){
+            this.updatePassword = true
+            this.createProfile = false
+            this.assignSubject = false
+            this.employmentHistory = false
+            this.updateMode = false
+            this.newPassword.user = id
+        },
+        updateUserPassword(){
+            Staff.updatePassword(this.newPassword.user, this.newPassword).then((result) => {
+                Swal.fire({
+                            icon: 'success',
+                            title: 'Oooops',
+                            text: 'Password Updated'
+                })
+            }).catch((err) => {
+                
+            });
+        },
         staffProfile(){
             this.createProfile = !this.createProfile
             this.assignSubject = false
             this.employmentHistory = false
             this.updateMode = false
+            this.updatePassword = false,
             this.newStaff.title = ""
             this.newStaff.appointment_date = ""
             this.newStaff.firstname = ""
@@ -517,7 +554,8 @@ export default {
             this.createProfile = !this.createProfile
             this.assignSubject = false
             this.employmentHistory = false  
-            this.assignClassroom = false            
+            this.assignClassroom = false
+            this.updatePassword = false            
                       
             Staff.getSingleStaff(id).then((result) => {
                     this.newStaff.title = result.data[0]['title']

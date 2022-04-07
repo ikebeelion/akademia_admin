@@ -81,6 +81,9 @@ export default{
     },
     uploadImage(formData, config){
         return Api.post('/uploadStaffImage', formData, config )
+    },
+    updatePassword(id, form){
+        return Api.put('/updatePassword/'+id, form)
     }
     
 
