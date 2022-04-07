@@ -362,9 +362,9 @@ export default {
         updateUserPassword(){
             Staff.updatePassword(this.newPassword.user, this.newPassword).then((result) => {
                 Swal.fire({
-                            icon: 'success',
-                            title: 'Oooops',
-                            text: 'Password Updated'
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'Password Updated'
                 })
             }).catch((err) => {
                 
