@@ -364,7 +364,11 @@ export default {
                     text: 'Password Updated'
                 })
             }).catch((err) => {
-                
+                 Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Password not Updated'
+                })
             });
         },
         parentProfile(){

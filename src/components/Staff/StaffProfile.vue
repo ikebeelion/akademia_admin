@@ -367,7 +367,11 @@ export default {
                     text: 'Password Updated'
                 })
             }).catch((err) => {
-                
+                 Swal.fire({
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'Password Updated'
+                })
             });
         },
         staffProfile(){
