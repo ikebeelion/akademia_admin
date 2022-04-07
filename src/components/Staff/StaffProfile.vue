@@ -259,7 +259,7 @@
                                 <button style="width:50px; background:black" @click.prevent="Employment(staff.id)" data-toggle="tooltip" data-placement="top" title="Add Employment History">
                                     <i class="fas fa-file-archive" aria-hidden="true"></i>
                                 </button>
-                                <button style="width:50px; background:purple" @click.prevent="getUser(staff.id)" data-toggle="tooltip" data-placement="top" title="update Password">
+                                <button style="width:50px; background:purple" @click.prevent="getUser(staff.staffuseraccountid)" data-toggle="tooltip" data-placement="top" title="update Password">
                                     <i class="fas fa-key" aria-hidden="true"></i>
                                 </button>
                             </td>

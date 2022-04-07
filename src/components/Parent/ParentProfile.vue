@@ -254,7 +254,7 @@
                             <button style="width:50px;background:orange; margin-top:2%; margin-left:5%" @click.prevent="assignWards(parent.id)" data-toggle="tooltip" data-placement="top" title="Add Students to Parent profile" >
                                 <i class="fas fa-users"></i>
                             </button>
-                            <button style="width:50px; background:purple" @click.prevent="getUser(parent.id)" data-toggle="tooltip" data-placement="top" title="update Password">
+                            <button style="width:50px; background:purple" @click.prevent="getUser(parent.useraccountid)" data-toggle="tooltip" data-placement="top" title="update Password">
                                     <i class="fas fa-key" aria-hidden="true"></i>
                                 </button>
                         </center>
