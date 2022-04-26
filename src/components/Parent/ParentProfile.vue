@@ -188,7 +188,7 @@
                         <td>{{student.genderid}}</td>
                         <td>
                             <button style="background:green" @click.prevent="addWard(student.studentuseraccountid, student.firstname, student.lastname, student.class_group.classgroupname,student.genderid)" data-toggle="tooltip" data-placement="top" title="This is my child">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
                             </button>
                         </td>
                     </tr>
@@ -536,7 +536,7 @@ export default {
             })
         },
         addParent(){
-            this.checkTelInput()
+            //this.checkTelInput()
             Parent.addParent(this.newParent).then((result) => {
                   this.getParents()
                     Swal.fire({
@@ -592,7 +592,7 @@ export default {
                 })
         },
         updateParent(){
-            this.checkTelInput()
+            //this.checkTelInput()
             Parent.updateParent(this.profileid, this.newParent).then((result) => {
                  this.getParents()
                     Swal.fire({

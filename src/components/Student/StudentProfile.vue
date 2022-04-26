@@ -392,7 +392,7 @@ export default {
             })
         },
         addStudent(){
-            this.checkTelInput()
+            ////this.checkTelInput()
             Student.addStudent(this.newStudent).then(() => {
                   this.getStudents()
                   this.tableKey++

@@ -18,7 +18,7 @@
                     <td><center>{{subjectgroup.classgroupname}}</center></td>
                     <td>
                         <button style="background:green" @click.prevent="$emit('addSubject', subjectgroup.id, subjectgroup.subjecttitle, subjectgroup.classgroupname)" >
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <i class="fas fa-plus-circle" aria-hidden="true"></i>
                         </button>
                     </td>
                 </tr>

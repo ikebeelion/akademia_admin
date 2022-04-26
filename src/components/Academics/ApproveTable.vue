@@ -34,7 +34,7 @@
                                                     <i class="fas fa-check" aria-hidden="true"></i>
                                                 </button>
                                                 <button  style="width:50px; background:orange" @click="disapprove(data.tid)">
-                                                    <i class="fa fa-times"></i>
+                                                    <i class="fas fa-times"></i>
                                                 </button>
                                                 <button style="width:50px; background:red" @click="deleteTimetable(data.tid)">
                                                     <i class="fas fa-trash" aria-hidden="true"></i>

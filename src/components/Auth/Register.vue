@@ -160,8 +160,8 @@
                                                 </div>
                                                 <!-- buttons -->
                                                 <center>                                            
-                                                    <button style="width:100px; margin-right:5%; background:orange" class="btn" v-if="this.step != 1 " @click.prevent="prevStep"> <i class="fa fa-backward" aria-hidden="true"></i> Previous Step </button>
-                                                    <button style="width:100px; margin-right:5%; color:black; background:cyan"  class="btn" v-if="this.step != this.totalsteps" @click.prevent="nextStep" :disabled="checkFilled"> <i class="fa fa-forward" aria-hidden="true"></i> Next Step </button>
+                                                    <button style="width:100px; margin-right:5%; background:orange" class="btn" v-if="this.step != 1 " @click.prevent="prevStep"> <i class="fas fa-backward" aria-hidden="true"></i> Previous Step </button>
+                                                    <button style="width:100px; margin-right:5%; color:black; background:cyan"  class="btn" v-if="this.step != this.totalsteps" @click.prevent="nextStep" :disabled="checkFilled"> <i class="fas fa-forward" aria-hidden="true"></i> Next Step </button>
                                                     <button style="width:100px; background:green" class="btn" v-if="this.step == this.totalsteps" type="submit" @click="submitData">  Register</button>
                                                 </center>
                       

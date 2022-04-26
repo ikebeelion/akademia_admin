@@ -165,7 +165,7 @@
 			
 		<div>
 			<button @click.prevent="logout" style="background:red; border:none; border-radius:20px; width:70px"> 
-					<i class="fa fa-sign-out" aria-hidden="true"></i>
+					<i class="fas fa-sign-out" aria-hidden="true"></i>
 			</button>
 			</div>
          </div>

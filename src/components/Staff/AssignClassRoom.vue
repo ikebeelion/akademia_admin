@@ -18,7 +18,7 @@
                     <td>{{roomgroup.classroom}}</td>
                     <td>
                         <button style="background:green" @click.prevent="$emit('addClassRoomGroup',roomgroup.id, roomgroup.classroom, roomgroup.classgroupname)">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <i class="fas fa-plus-circle" aria-hidden="true"></i>
                         </button>
                     </td>
                 </tr>

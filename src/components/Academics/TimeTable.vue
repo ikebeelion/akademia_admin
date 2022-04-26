@@ -85,14 +85,14 @@
                     </div>
                 </div>
                     <button :disabled="checkFilled" class="btn btn-success mb-5" @click="addToTable()">
-                        Add to table <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add to table <i class="fas fa-plus-circle" aria-hidden="true"></i>
                     </button>
             </center>
         </section>
         <section>
         <center style="margin-bottom:25px">
         <button style=" background:green; margin-right:50px" class="btn btn-primary col-12 mb-2 mt-2 ml-2" @click="saveTimeTable()">
-        Save Time Table <i class="fa fa-file" aria-hidden="true"></i></button>
+        Save Time Table <i class="fas fa-file" aria-hidden="true"></i></button>
         <button @click="appTable">Approve Time Table
         </button>
         </center>

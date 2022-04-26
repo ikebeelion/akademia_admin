@@ -47,10 +47,10 @@
                         </td>
                         <td>
                             <button id="delete"  @click="deleteSubject(subject.id)">
-                                <i class="fa fa-trash"></i>
+                                <i class="fas fa-trash"></i>
                             </button>
                             <button id="edit" @click="getSingleSubject(subject.id)">
-                                <i class="fa fa-edit"></i>
+                                <i class="fas fa-edit"></i>
                             </button>                            
                         </td>
                         </tr>

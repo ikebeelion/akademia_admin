@@ -595,7 +595,7 @@ export default {
             })
         },
         updateStaff(){
-            // this.checkTelInput()
+            // //this.checkTelInput()
             Staff.updateStaff(this.profileid, this.newStaff).then(() => {
                  this.getStaff()
                  this.staffProfile()
@@ -709,6 +709,7 @@ export default {
 
         saveSubjectAssign(){
             Staff.saveSubjectAssign(this.allsubjectgroups).then(() => {
+                this.assignSubject  = false
                   this.getStaff()
                     Swal.fire({
                     position: 'top-end',
@@ -798,6 +799,7 @@ export default {
         },
         saveClassRoomTeacherAssign(){
             Staff.saveClassRoomTeacherAssign(this.allclassroomgroups).then(() => {
+                this.assignClassroom = false
                 this.getStaff()
                     Swal.fire({
                     position: 'top-end',

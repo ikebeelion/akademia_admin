@@ -7,7 +7,7 @@
 					<div class="cardName">Students</div>
 				</div>
 				<div class="iconBox">					
-					<i class="fa fa-user-graduate"></i>
+					<i class="fas fa-user-graduate"></i>
 				</div>
 			</div>
 
