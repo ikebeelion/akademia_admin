@@ -17,31 +17,31 @@
         <section style="margin-top:50px">
         <h1>All Types</h1>
             <center>
-            <p>Listed Below are all the registered Types in this school</p>
+                <p>Listed Below are all the registered Types in this school</p>           
+                <table id="all-types">
+                    <thead>
+                    <tr>
+                        <th>Result Type</th>
+                        <th>Percentage</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody :key="tableKey">
+                    <tr v-for="type in types" :key="type.id">
+                        <td><center>{{type.resulttype}}</center></td>
+                        <td><center>{{type.percentage}}</center></td>
+                        <td>
+                            <button id="delete" @click="deleteType(type.id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button id="edit" @click="getSingleType(type.id)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table> 
             </center>
-            <table id="all-types">
-                <thead>
-                <tr>
-                    <th>Result Type</th>
-                    <th>Percentage</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody :key="tableKey">
-                <tr v-for="type in types" :key="type.id">
-                    <td><center>{{type.resulttype}}</center></td>
-                    <td><center>{{type.percentage}}</center></td>
-                    <td>
-                        <button id="delete" @click="deleteType(type.id)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button id="edit" @click="getSingleType(type.id)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </section>        
 </div>
 

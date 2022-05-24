@@ -1,45 +1,46 @@
 <template>
     <div>  
-        <h1>Class Groups</h1>      
-        <section>
-        <center>
-              <div class="form-group">
-                    <label>Class Groups</label>
-                    <input type="text" placeholder="..." v-model="newClassGroup.classgroupname" @input="checkInput">
-                </div>
-                <button  @click.prevent=addClassGroup v-if="!updateMode" :disabled="this.checkFilled == true">Add</button>
-                <button  @click.prevent=updateGroup() v-if="updateMode">Update</button>                                            
-            </center>
-        </section>
-        <section style="margin-top:50px">
+        <TransitionGroup name="content">
+            <h1>Class Groups</h1>      
+            <section>
             <center>
-                <h1>All Class Groups</h1>
-                <p>Listed Below are all the registered class groups in this school</p>
-                <table id="all-classgroups">
-                    <thead>
-                        <tr>
-                            <th>Class Group</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody :key="tableKey">
-                        <tr v-for="classGroup in classgroups" :key="classGroup.id">
-                            <td><center>{{classGroup.classgroupname}}</center></td>
-                            <td>
-                                <button id="delete" @click="deleteGroup(classGroup.id)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                                <button id="edit" @click="getSingleGroup(classGroup.id)">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </center>
+                <div class="form-group">
+                        <label>Class Groups</label>
+                        <input type="text" placeholder="..." v-model="newClassGroup.classgroupname" @input="checkInput">
+                    </div>
+                    <button  @click.prevent=addClassGroup v-if="!updateMode" :disabled="this.checkFilled == true">Add</button>
+                    <button  @click.prevent=updateGroup() v-if="updateMode">Update</button>                                            
+                </center>
+            </section>
+            <section style="margin-top:50px">
+                <center>
+                    <h1>All Class Groups</h1>
+                    <p>Listed Below are all the registered class groups in this school</p>
+                    <table id="all-classgroups">
+                        <thead>
+                            <tr>
+                                <th>Class Group</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody :key="tableKey">
+                            <tr v-for="classGroup in classgroups" :key="classGroup.id">
+                                <td><center>{{classGroup.classgroupname}}</center></td>
+                                <td>
+                                    <button id="delete" @click="deleteGroup(classGroup.id)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button id="edit" @click="getSingleGroup(classGroup.id)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
 
-        </section>
-
+            </section>
+        </TransitionGroup>
     </div>
 </template>
 

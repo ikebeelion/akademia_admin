@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label for="">Select Class Room</label>
                     <select v-model="newClassDetails.classroom" @change="addGroup">
-                        <option value="">Select Classroom</option>
+                        <option value="null">Select Classroom</option>
                         <option v-for="classRoom in classRooms" :value="classRoom.id" :key="classRoom.id">
                             {{ classRoom.class_room.classroom }}
                         </option>

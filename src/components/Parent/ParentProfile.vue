@@ -1,268 +1,270 @@
 <template>
     <div>
-        <h1>Parents & Wards</h1>
-        <center style="margin-bottom:20px">
-            <button style="width:20%; margin-right:5%; margin-bottom:5%" @click="parentProfile">Create Profile</button>                                                
-        </center>  
-        <section v-if="createProfile && !assWard">
-         <div class="col-lg-4" v-if="updateMode==true">
-                <div>
-                    <center>
-                        <h5 class="ml-5">parent Details</h5>
-                    </center>
-                </div>                            
-            </div>
+        <TransitionGroup name="content">
+            <h1>Parents & Wards</h1>
             <center style="margin-bottom:20px">
-                <div class="img-container" style="margin-bottom:10px">
-                        <img :src="'http://localhost:8000/images/parents/'+this.newParent.photo" alt="parent photo">                    
+                <button style="width:20%; margin-right:5%; margin-bottom:5%" @click="parentProfile">Create Profile</button>                                                
+            </center>  
+            <section v-if="createProfile && !assWard">
+            <div class="col-lg-4" v-if="updateMode==true">
+                    <div>
+                        <center>
+                            <h5 class="ml-5">parent Details</h5>
+                        </center>
+                    </div>                            
                 </div>
-                <h5 v-if="updateMode">Wards</h5>
-                <div v-for="ward in wards" :key=ward.id>
-                    <div v-for="student in ward" :key=student.id>
-                        <a href="#" @click.prevent="getSingleStudent(student.id)">
-                            {{student.firstname}} {{student.lastname}}
-                        </a>
-                        <small style="margin-left:5%; background:red; cursor:pointer">
-                             <a ref="#" style="color:white" @click="deleteward(student.studentuseraccountid)">Delete</a>
-                        </small>
+                <center style="margin-bottom:20px">
+                    <div class="img-container" style="margin-bottom:10px">
+                            <img :src="'http://localhost:8000/images/parents/'+this.newParent.photo" alt="parent photo">                    
+                    </div>
+                    <h5 v-if="updateMode">Wards</h5>
+                    <div v-for="ward in wards" :key=ward.id>
+                        <div v-for="student in ward" :key=student.id>
+                            <a href="#" @click.prevent="getSingleStudent(student.id)">
+                                {{student.firstname}} {{student.lastname}}
+                            </a>
+                            <small style="margin-left:5%; background:red; cursor:pointer">
+                                <a ref="#" style="color:white" @click="deleteward(student.studentuseraccountid)">Delete</a>
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </center>
+            <div v-if="step==1" >
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <select v-model="newParent.title" id="" @input="checkInput">
+                                <option value="">Select Title</option>
+                                <option value="mr">Mr.</option>
+                                <option value="miss">Miss</option>
+                                <option value="mrs">Mrs.</option>
+                                <option value="dr">Dr.</option>
+                                <option value="engr">Engr.</option>
+                                <option value="prof">Prof</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Occupation</label>
+                            <input @input="checkInput" v-model="newParent.occupation" type="text" placeholder="...">
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="form-group">
+                        <label>Firstname</label>
+                        <input @input="checkInput" v-model="newParent.firstname" type="text" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label>Lastname</label>
+                        <input @input="checkInput" v-model="newParent.lastname" type="text" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label>Othername(s)</label>
+                        <input @input="checkInput" v-model="newParent.othernames" type="text" placeholder="...">
                     </div>
                 </div>
-                <hr>
-            </center>
-        <div v-if="step==1" >
-                <div class="form-group-row">
+                <div class="form-group-row">                
                     <div class="form-group">
-                        <label>Title</label>
-                        <select v-model="newParent.title" id="" @input="checkInput">
-                            <option value="">Select Title</option>
-                            <option value="mr">Mr.</option>
-                            <option value="miss">Miss</option>
-                            <option value="mrs">Mrs.</option>
-                            <option value="dr">Dr.</option>
-                            <option value="engr">Engr.</option>
-                            <option value="prof">Prof</option>
+                        <label>Date of Birth</label>
+                        <input @input="checkInput" v-model="newParent.dob" type="date" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select v-model="newParent.genderid" @change="checkInput">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Occupation</label>
-                        <input @input="checkInput" v-model="newParent.occupation" type="text" placeholder="...">
+                        <label>Religion</label>
+                        <select v-model="newParent.religion" @change="checkInput">
+                            <option value="">Select Religion</option>
+                            <option value="christian">Christian</option>
+                            <option value="islam">Islam</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div v-if="step==2" >
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Nationality <span class="text-danger">*</span></label>
+                        <select v-model="newParent.nationalityid" @change="getStateofO(newParent.nationalityid)">
+                            <option v-for="country in countries"  :value="country.id" :key="country.id"> {{ country.country }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>State of Origin <span class="text-danger">*</span></label>
+                        <select v-model="newParent.stateoforiginid" @change="checkInput">
+                            <option v-for="statee in stateofo" :value="statee.id" :key="statee.id" >{{statee.state}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group-row">
                     <div class="form-group">
-                    <label>Firstname</label>
-                    <input @input="checkInput" v-model="newParent.firstname" type="text" placeholder="...">
+                        <label>L.G.A</label>
+                        <input @input="checkInput" v-model="newParent.local_govt_area" type="text" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea @input="checkInput" v-model="newParent.address" cols="50" rows="2" placeholder="..."></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Lastname</label>
-                    <input @input="checkInput" v-model="newParent.lastname" type="text" placeholder="...">
-                </div>
-                <div class="form-group">
-                    <label>Othername(s)</label>
-                    <input @input="checkInput" v-model="newParent.othernames" type="text" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group-row">                
-                <div class="form-group">
-                    <label>Date of Birth</label>
-                    <input @input="checkInput" v-model="newParent.dob" type="date" placeholder="...">
-                </div>
-                <div class="form-group">
-                    <label>Gender</label>
-                    <select v-model="newParent.genderid" @change="checkInput">
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Religion</label>
-                    <select v-model="newParent.religion" @change="checkInput">
-                        <option value="">Select Religion</option>
-                        <option value="christian">Christian</option>
-                        <option value="islam">Islam</option>
-                    </select>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Country </label>
+                        <select  v-model="newParent.countryid" @change="getState(newParent.countryid)">
+                            <option  v-for="country in countries" :value="country.id" :key="country.id"> {{ country.country   }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>State</label>
+                        <select  v-model="newParent.stateid" @change="getCity(newParent.stateid)">
+                            <option value="">Select</option>
+                            <option v-for="statee in states" :value="statee.id" :key="statee.id">{{statee.state}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <select v-model="newParent.cityid" @change="checkInput">
+                            <option value="">Select</option>
+                            <option v-for="city in cities" :value="city.id" :key="city.id" >{{ city.city }}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-
-        </div>
-        <div v-if="step==2" >
+            <div v-if="step==3" >
             <div class="form-group-row">
                 <div class="form-group">
-                    <label>Nationality <span class="text-danger">*</span></label>
-                    <select v-model="newParent.nationalityid" @change="getStateofO(newParent.nationalityid)">
-                        <option v-for="country in countries"  :value="country.id" :key="country.id"> {{ country.country }}</option>
-                    </select>
+                    <label>Contact Email Address</label>
+                    <input @input="checkInput" v-model="newParent.contactemail" type="email" placeholder="...">
                 </div>
                 <div class="form-group">
-                    <label>State of Origin <span class="text-danger">*</span></label>
-                    <select v-model="newParent.stateoforiginid" @change="checkInput">
-                        <option v-for="statee in stateofo" :value="statee.id" :key="statee.id" >{{statee.state}}</option>
-                    </select>
+                    <label>Contact Telephone</label>
+                    <input v-model="newParent.contacttel" type="text" placeholder="...">
                 </div>
+                <div class="form-group">
+                    <label>parent Image</label>
+                    <input @change="pickFile" type="file" placeholder="...">
+                </div>                                                    
             </div>
-            <div class="form-group-row">
-                <div class="form-group">
-                    <label>L.G.A</label>
-                    <input @input="checkInput" v-model="newParent.local_govt_area" type="text" placeholder="...">
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea @input="checkInput" v-model="newParent.address" cols="50" rows="2" placeholder="..."></textarea>
-                </div>
-            </div>
-            <div class="form-group-row">
-                <div class="form-group">
-                    <label>Country </label>
-                    <select  v-model="newParent.countryid" @change="getState(newParent.countryid)">
-                        <option  v-for="country in countries" :value="country.id" :key="country.id"> {{ country.country   }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>State</label>
-                    <select  v-model="newParent.stateid" @change="getCity(newParent.stateid)">
-                        <option value="">Select</option>
-                        <option v-for="statee in states" :value="statee.id" :key="statee.id">{{statee.state}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>City</label>
-                    <select v-model="newParent.cityid" @change="checkInput">
-                        <option value="">Select</option>
-                        <option v-for="city in cities" :value="city.id" :key="city.id" >{{ city.city }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div v-if="step==3" >
-        <div class="form-group-row">
-            <div class="form-group">
-                <label>Contact Email Address</label>
-                <input @input="checkInput" v-model="newParent.contactemail" type="email" placeholder="...">
-            </div>
-            <div class="form-group">
-                <label>Contact Telephone</label>
-                <input v-model="newParent.contacttel" type="text" placeholder="...">
-            </div>
-            <div class="form-group">
-                <label>parent Image</label>
-                <input @change="pickFile" type="file" placeholder="...">
-            </div>                                                    
-        </div>
-        </div>
-      
-        <center>
-            <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
-            <button @click.prevent="nextStep" v-if="this.step != this.totalsteps ">Next</button>
-            <button @click.prevent="addParent" v-if="this.step == this.totalsteps && this.updateMode == false" >Add New parent</button>
-            <button @click.prevent="checkTelInput" v-if="this.step == this.totalsteps  && this.updateMode == true">Update Parent</button>
-
-        </center>
-        </section>
-        <section v-if="updatePassword">
+            </div>      
             <center>
-                <div class="form-group">
-                    <input type="text" v-model="newPassword.password">
-                </div>
-                <button @click="updateUserPassword()">Update Password</button>
+                <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
+                <button @click.prevent="nextStep" v-if="this.step != this.totalsteps ">Next</button>
+                <button @click.prevent="addParent" v-if="this.step == this.totalsteps && this.updateMode == false" >Add New parent</button>
+                <button @click.prevent="updateParent" v-if="this.step == this.totalsteps  && this.updateMode == true">Update Parent</button>
+
             </center>
-        </section> 
-        <section v-if="assWard">
-            <table id="all-students">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Class Group</th>
-                        <th>Enrollment Date</th>
-                        <th>Gender</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="student in students" :key="student.id">
-                        <td>{{student.firstname}}</td>
-                        <td>{{student.lastname}}</td>
-                        <td>{{student.class_group.classgroupname}}</td>
-                        <td>{{student.enrollmentdate}}</td>
-                        <td>{{student.genderid}}</td>
-                        <td>
-                            <button style="background:green" @click.prevent="addWard(student.studentuseraccountid, student.firstname, student.lastname, student.class_group.classgroupname,student.genderid)" data-toggle="tooltip" data-placement="top" title="This is my child">
-                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-             <table class="table table-bordered dt-responsive nowrap w-100">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Class Group</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="ward in newWard" :key="ward.id">
-                        <td>{{ward.firstname}}</td>
-                        <td>{{ward.lastname}}</td>
-                        <td>{{ward.classgroupname}}</td>
-                        <td>
-                            <button id="delete" @click.prevent="removeFromWard(ward)">
-                                <i class="fas fa-trash" aria-hidden="true"></i>
-                            </button>                            
-                        </td>
-                    </tr>                    
-                </tbody>                
-            </table>
-            <center style="margin-top:10%">
-                <button style="background:green" @click.prevent="saveWard">
-                    Save
-                </button>
-            </center>
-        </section>
-        <section style="margin-top:50px">
-            <h1>All Parents</h1>
-            <center>
-                <p>Listed Below are all the registered parents in this school</p>
-            </center>
-            <table id="all-parents">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Gender</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody :key="tableKey">
-                    <tr v-for="parent in parents" :key="parent.id">
-                        <td><center>{{parent.title}}</center></td>
-                        <td><center>{{parent.firstname}}</center></td>
-                        <td><center>{{parent.lastname}}</center></td>
-                        <td><center>{{parent.genderid}}</center></td>
-                        <td >
-                        <center>
-                            <button style="width:50px"     id="delete" @click.prevent="deleteParent(parent.id)" data-toggle="tooltip" data-placement="top" title="Disable Parent Profile">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button style="width:50px" id="edit" @click.prevent="getSingleParent(parent.id)" data-toggle="tooltip" data-placement="top" title="Modify Parent" >
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button style="width:50px;background:orange; margin-top:2%; margin-left:5%" @click.prevent="assignWards(parent.id)" data-toggle="tooltip" data-placement="top" title="Add Students to Parent profile" >
-                                <i class="fas fa-users"></i>
-                            </button>
-                            <button style="width:50px; background:purple" @click.prevent="getUser(parent.useraccountid)" data-toggle="tooltip" data-placement="top" title="update Password">
-                                    <i class="fas fa-key" aria-hidden="true"></i>
+            </section>
+            <section v-if="updatePassword">
+                <center>
+                    <div class="form-group">
+                        <input type="text" v-model="newPassword.password">
+                    </div>
+                    <button @click="updateUserPassword()">Update Password</button>
+                </center>
+            </section> 
+            <section v-if="assWard">
+                <table id="all-students">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Class Group</th>
+                            <th>Enrollment Date</th>
+                            <th>Gender</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="student in students" :key="student.id">
+                            <td>{{student.firstname}}</td>
+                            <td>{{student.lastname}}</td>
+                            <td>{{student.class_group.classgroupname}}</td>
+                            <td>{{student.enrollmentdate}}</td>
+                            <td>{{student.genderid}}</td>
+                            <td>
+                                <button style="background:green" @click.prevent="addWard(student.studentuseraccountid, student.firstname, student.lastname, student.class_group.classgroupname,student.genderid)" data-toggle="tooltip" data-placement="top" title="This is my child">
+                                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
                                 </button>
-                        </center>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Class Group</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="ward in newWard" :key="ward.id">
+                            <td>{{ward.firstname}}</td>
+                            <td>{{ward.lastname}}</td>
+                            <td>{{ward.classgroupname}}</td>
+                            <td>
+                                <button id="delete" @click.prevent="removeFromWard(ward)">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>                            
+                            </td>
+                        </tr>                    
+                    </tbody>                
+                </table>
+                <center style="margin-top:10%">
+                    <button style="background:green" @click.prevent="saveWard">
+                        Save
+                    </button>
+                </center>
+            </section>
+            <section style="margin-top:50px">
+                <h1>All Parents</h1>
+                <center>
+                    <p>Listed Below are all the registered parents in this school</p>            
+                    <table id="all-parents">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Gender</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody :key="tableKey">
+                            <tr v-for="parent in parents" :key="parent.id">
+                                <td><center>{{parent.title}}</center></td>
+                                <td><center>{{parent.firstname}}</center></td>
+                                <td><center>{{parent.lastname}}</center></td>
+                                <td><center>{{parent.genderid}}</center></td>
+                                <td >
+                                <center>
+                                    <button style="width:50px"     id="delete" @click.prevent="deleteParent(parent.id)" data-toggle="tooltip" data-placement="top" title="Disable Parent Profile">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button style="width:50px" id="edit" @click.prevent="getSingleParent(parent.id)" data-toggle="tooltip" data-placement="top" title="Modify Parent" >
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button style="width:50px;background:orange; margin-top:2%; margin-left:5%" @click.prevent="assignWards(parent.id)" data-toggle="tooltip" data-placement="top" title="Add Students to Parent profile" >
+                                        <i class="fas fa-users"></i>
+                                    </button>
+                                    <button style="width:50px; background:purple" @click.prevent="getUser(parent.useraccountid)" data-toggle="tooltip" data-placement="top" title="update Password">
+                                            <i class="fas fa-key" aria-hidden="true"></i>
+                                        </button>
+                                </center>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </section>    
+        </TransitionGroup>
+
        
     </div>
 
@@ -276,7 +278,7 @@ export default {
     data() {
         return {
                 checkFilled:false,
-                createProfile:true,
+                createProfile:false,
                 assWard:false,
                 updatePassword:false,
                 newPassword:{
@@ -396,6 +398,7 @@ export default {
                     this.newStudent.yearid = ""
                     this.newStudent.photo = ""
                     this.profileid = ""
+                    this.datatable()
         },
         nextStep(){
             if(this.updateMode == true){

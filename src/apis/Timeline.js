@@ -22,4 +22,7 @@ export default{
     addAcademicPeriod(form){
         return Api.post('/addAcademicPeriod', form)
     },
+    getPeriod(branchid){
+        return Api.get('/period/'+branchid)
+    }
 }

@@ -33,6 +33,7 @@
         </center>
         
         <div style="margin-top:20px; margin-bottom:20px" v-if="this.emphistory != null">
+        <center>
             <table>
                 <thead>
                     <tr>
@@ -57,8 +58,9 @@
                     </td>
                 </tr>
             </tbody>
-        </table>        
-    </div>
+            </table>        
+        </center>
+        </div>
     
     </div>
 

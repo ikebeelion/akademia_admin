@@ -1,5 +1,6 @@
 <template>
-    <div :key="chartKey">        
+    <div :key="chartKey"> 
+	<TransitionGroup name="content">
         <div class="cardBox">
 			<div class="card">
 				<div>
@@ -49,8 +50,7 @@
 				<apexchart type="bar" height="350" :options="bchartOptions" :series="bseries"></apexchart>
 			</div>
 		</div>
-	
-    
+	</TransitionGroup>
 
 
 

@@ -1,5 +1,6 @@
 <template>
      <div>
+     <TransitionGroup name="content">
         <h1>Staff Profile</h1>
         <center style="margin-bottom:20px">
             <button style="width:20%; margin-right:5%; margin-bottom:5%" @click="staffProfile">Create Profile</button>                                     
@@ -267,6 +268,8 @@
                         </tbody>
                     </table>
         </section>
+     </TransitionGroup>
+        
        
        
     </div>
@@ -403,6 +406,7 @@ export default {
             this.staffuserid = ""
             this.newStaff.staff_type = ""
             this.step = 1
+            this.datatable()
         },
         nextStep(){
             if(this.updateMode == true){

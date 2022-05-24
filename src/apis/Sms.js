@@ -7,6 +7,10 @@ export default{
     
     sendSms(branchid, form){
         return Api.post('/sms/'+branchid, form)
-    }
+    },
+
+    sendCAsMS(branchid, form){
+        return Api.post('/casms/'+branchid, form)
+    },
     
 }

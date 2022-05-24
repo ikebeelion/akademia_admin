@@ -13,8 +13,8 @@
 
 input, select, textarea{
 	padding: 10px;
-	border-radius: 20px;
-	border: .5px solid black;
+	border-radius: 10px;
+	border: .5px solid #777;
 	display: block;
 	margin-bottom: 15px;
 	width: 40%;
@@ -67,6 +67,15 @@ div.dataTables_filter input{
 	transition: 0.5s;
 	overflow-x: hidden;	
     color: white;
+}
+.content-enter-active
+{
+transition: all 0.5s ease;
+}
+.content-enter-from,
+.content-leave-to {
+opacity: 0;
+transform: translateX(30px);
 }
 
 .navigation.active{

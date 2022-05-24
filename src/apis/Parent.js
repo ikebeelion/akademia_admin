@@ -31,8 +31,8 @@ export default{
     getSingleParent(id){
         return Api.get('/parent/'+id)
     },
-    updateParent(id){
-        return Api.put('/parent-update/'+id)
+    updateParent(id, form){
+        return Api.put('/parent-update/'+id, form)
     },
     deleteParent(id){
         return Api.delete('/delete-parent/'+id)

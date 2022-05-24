@@ -13,7 +13,7 @@
         </section>
         <section style="margin-top:50px">
         <h1>All Ranks</h1>
-           <center><p>Listed Below are all the registered ranks in this school</p></center>
+           <center><p>Listed Below are all the registered ranks in this school</p>
              <table id="all-ranks">
                 <thead>
                     <tr>
@@ -36,7 +36,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table></center>
         </section>            
     </div>
 

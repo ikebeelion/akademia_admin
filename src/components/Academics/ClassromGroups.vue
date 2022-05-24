@@ -1,59 +1,61 @@
 <template>
     <div>
-        <section style="margin-bottom:20px">
-            <center>
-                <div class="form-group">
-                    <label>Class Group</label>
-                        <select v-model="newClassRoomGroup.classgroup" @change="checkInput">
-                            <option value="">Select</option>
-                            <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
-                        </select>
-                </div>
-                <div class="form-group">
-                    <label>Class Room</label>
-                        <select v-model="newClassRoomGroup.classroom" @change="checkInput">
+        <TransitionGroup name="content">
+            <section style="margin-bottom:20px">
+                <center>
+                    <div class="form-group">
+                        <label>Class Group</label>
+                            <select v-model="newClassRoomGroup.classgroup" @change="checkInput">
                                 <option value="">Select</option>
-                                <option v-for="room in classrooms" :key="room.id" :value="room.id">{{ room.classroom }}</option>
-                        </select>
-                </div>
-                <button @click.prevent=assignClassRoomGroup v-if="!updateMode" :disabled="this.checkFilled == true">Assign</button>
-                <button @click.prevent=updateRoomGroup v-if="updateMode">Update</button>            
-            </center>
-        </section>
-        <section>
-            <table id="all-roomgroups">
-                <thead>
-                    <tr>
-                        <th>Class Room</th>
-                        <th>Class Group</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody :key="tableKey">
-                    <tr v-for="classRoomGroup in roomGroups" :key="classRoomGroup.id">
-                        <td>
-                            <center>
-                                {{classRoomGroup.classroom}}
-                            </center>
-                        </td>
-                        <td>
-                            <center>
-                                {{classRoomGroup.classgroupname}}
-                            </center>
-                        </td>
-                        <td>
-                            <button id="delete" @click="deleteRoomGroup(classRoomGroup.id)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button id="edit" @click="getSingleClassRoomGroup(classRoomGroup.id)">
-                                <i class="fas fa-edit"></i>
-                            </button>                                                    
-                        </td>
-                    </tr>
+                                <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Class Room</label>
+                            <select v-model="newClassRoomGroup.classroom" @change="checkInput">
+                                    <option value="">Select</option>
+                                    <option v-for="room in classrooms" :key="room.id" :value="room.id">{{ room.classroom }}</option>
+                            </select>
+                    </div>
+                    <button @click.prevent=assignClassRoomGroup v-if="!updateMode" :disabled="this.checkFilled == true">Assign</button>
+                    <button @click.prevent=updateRoomGroup v-if="updateMode">Update</button>            
+                </center>
+            </section>
+            <section>
+                <table id="all-roomgroups">
+                    <thead>
+                        <tr>
+                            <th>Class Room</th>
+                            <th>Class Group</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody :key="tableKey">
+                        <tr v-for="classRoomGroup in roomGroups" :key="classRoomGroup.id">
+                            <td>
+                                <center>
+                                    {{classRoomGroup.classroom}}
+                                </center>
+                            </td>
+                            <td>
+                                <center>
+                                    {{classRoomGroup.classgroupname}}
+                                </center>
+                            </td>
+                            <td>
+                                <button id="delete" @click="deleteRoomGroup(classRoomGroup.id)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button id="edit" @click="getSingleClassRoomGroup(classRoomGroup.id)">
+                                    <i class="fas fa-edit"></i>
+                                </button>                                                    
+                            </td>
+                        </tr>
 
-                </tbody>    
-            </table>
-        </section>
+                    </tbody>    
+                </table>
+            </section>
+        </TransitionGroup>
     </div>
 </template>
 

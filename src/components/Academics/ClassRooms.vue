@@ -1,51 +1,53 @@
 <template>
     <div>
-        <h1>Class Rooms</h1>
-        <center>            
-            <button style="width:20%;" @click="assignRoom">Assign Class Room</button>
-        </center>
-        <section>
-            <center>
-                <div class="form-group">
-                    <label>Class Rooms</label>
-                    <input type="text" placeholder="..." v-model="newClassRoom.classroom" @input="checkInput">
-                </div>
-                <button @click.prevent=addClassRoom v-if="!updateMode" :disabled="this.checkFilled == true">Add</button>
-                <button @click.prevent=updateRoom() v-if="updateMode">Update</button>                                        
+        <TransitionGroup name="content">
+            <h1>Class Rooms</h1>
+            <center>            
+                <button style="width:20%;" @click="assignRoom">Assign Class Room</button>
             </center>
-        </section>        
-        <section style="margin-top:50px">
-            <center>
-                <h1>All Class Rooms</h1>
-                    <p>Listed Below are all the registered class Rooms in this school</p>
-                        <table id="all-classrooms">
-                                <thead>
-                                    <tr>
-                                        <th>Class Room</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                        <tbody :key="tableKey">
-                                            <tr v-for="classRoom in classRooms" :key="classRoom.id">
-                                                <td>
-                                                    <center>
-                                                        {{classRoom.classroom}}
-                                                    </center> 
-                                                </td>
-                                                <td>
-                                                    <button id="delete" @click="deleteRoom(classRoom.id)">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button id="edit" @click="getSingleRoom(classRoom.id)">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+            <section>
+                <center>
+                    <div class="form-group">
+                        <label>Class Rooms</label>
+                        <input type="text" placeholder="..." v-model="newClassRoom.classroom" @input="checkInput">
+                    </div>
+                    <button @click.prevent=addClassRoom v-if="!updateMode" :disabled="this.checkFilled == true">Add</button>
+                    <button @click.prevent=updateRoom() v-if="updateMode">Update</button>                                        
+                </center>
+            </section>        
+            <section style="margin-top:50px">
+                <center>
+                    <h1>All Class Rooms</h1>
+                        <p>Listed Below are all the registered class Rooms in this school</p>
+                            <table id="all-classrooms">
+                                    <thead>
+                                        <tr>
+                                            <th>Class Room</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                            <tbody :key="tableKey">
+                                                <tr v-for="classRoom in classRooms" :key="classRoom.id">
+                                                    <td>
+                                                        <center>
+                                                            {{classRoom.classroom}}
+                                                        </center> 
+                                                    </td>
+                                                    <td>
+                                                        <button id="delete" @click="deleteRoom(classRoom.id)">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                        <button id="edit" @click="getSingleRoom(classRoom.id)">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
 
-                                            </tbody>
-                        </table>                
-            </center>
-        </section>                                  
+                                                </tbody>
+                            </table>                
+                </center>
+            </section>                                  
+        </TransitionGroup>
 </div>                
 </template>
 

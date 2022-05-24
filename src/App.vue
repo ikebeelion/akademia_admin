@@ -147,6 +147,13 @@
 						<span class="title">Send Messages</span>
 					</router-link>
 				</li>
+				<li>		
+					<router-link @click="closeToggle" to="/notify" active-class="activeLink">
+						<span class="icon"><i class="fas fa-sms" aria-hidden="true"></i></span>
+						<span class="title">Send CA Notification</span>
+					</router-link>
+				</li>
+				
 			</ul>
         </div>
         <div class="main" v-if="this.$route.path != '/'">

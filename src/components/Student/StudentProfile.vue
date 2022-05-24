@@ -1,211 +1,209 @@
 <template>
      <div>
-        <h1>Student Profile</h1>
-        <center style="margin-bottom:20px">
-            <button style="width:20%; margin-right:5%; margin-bottom:5%" @click="studentProfile">Create Profile</button>                                     
-            <div v-if="updateMode==true && !assClassRoom">
-                <h6>Student Class Room:</h6>
-                    <p v-show="studentClassRoom.classgroupname">
-                        {{this.studentClassRoom.classgroupname+' '+this.studentClassRoom.classroom}}
-                    </p>
-                    <p v-show="!studentClassRoom.classgroupname">
-                        Class Room Not Assigned
-                    </p>
-            </div>
-        </center>                   
-        <!-- create profile -->
-        <section v-if="createProfile && !assClassRoom">
-            <center style="margin-bottom:20px;" >
-                <div class="img-container" style="margin-bottom:10px">
-                    <img :src="'http://localhost:8000/images/students/'+this.newStudent.photo" alt="student photo">                    
+        <TransitionGroup name="content">
+            <h1>Student Profile</h1>
+            <center style="margin-bottom:20px">
+                <button style="width:20%; margin-right:5%; margin-bottom:5%" @click="studentProfile">Create Profile</button>                                     
+                <div v-if="updateMode==true && !assClassRoom">
+                    <h6>Student Class Room:</h6>
+                        <p v-show="studentClassRoom.classgroupname">
+                            {{this.studentClassRoom.classgroupname+' '+this.studentClassRoom.classroom}}
+                        </p>
+                        <p v-show="!studentClassRoom.classgroupname">
+                            Class Room Not Assigned
+                        </p>
                 </div>
-                <div v-if="step==1" >
-                    <div class="form-group-row">
-                        <div class="form-group">
-                            <label>Firstname</label>
-                            <input @change="checkInput" v-model="newStudent.firstname" type="text" placeholder="...">
-                        </div>
-                        <div class="form-group">
-                            <label>Lastname</label>
-                            <input @change="checkInput" v-model="newStudent.lastname" type="text" placeholder="...">
-                        </div>
-                        <div class="form-group">
-                            <label>Othername(s)</label>
-                            <input @change="checkInput" v-model="newStudent.othernames" type="text" placeholder="...">
-                        </div>
+            </center>                   
+            <!-- create profile -->
+            <section v-if="createProfile && !assClassRoom">
+                <center style="margin-bottom:20px;" >
+                    <div class="img-container" style="margin-bottom:10px">
+                        <img :src="'http://localhost:8000/images/students/'+this.newStudent.photo" alt="student photo">                    
+                    </div>
+                    <div v-if="step==1" >
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Firstname</label>
+                                <input @change="checkInput" v-model="newStudent.firstname" type="text" placeholder="...">
+                            </div>
+                            <div class="form-group">
+                                <label>Lastname</label>
+                                <input @change="checkInput" v-model="newStudent.lastname" type="text" placeholder="...">
+                            </div>
+                            <div class="form-group">
+                                <label>Othername(s)</label>
+                                <input @change="checkInput" v-model="newStudent.othernames" type="text" placeholder="...">
+                            </div>
+                            </div>
+                            <div class="form-group-row">
+                                        <div class="form-group">
+                                            <label>Date of Birth</label>
+                                            <input @change="checkInput" v-model="newStudent.dob" type="date" placeholder="...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <select v-model="newStudent.genderid" @change="checkInput">
+                                                <option value="null">Select Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Religion</label>
+                                            <select v-model="newStudent.religion" @change="checkInput">
+                                                <option value="null">Select Religion</option>
+                                                <option value="christian">Christian</option>
+                                                <option value="islam">Islam</option>
+                                            </select>
+                                        </div>
+                                        
+                            </div>      
+                                                
+                    </div>
+                    <div v-if="step==2" >
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Nationality <span class="text-danger">*</span></label>
+                                    <select v-model="newStudent.nationalityid" @change="getStateofO(newStudent.nationalityid)">
+                                        <option value="null">Select Nationlity</option>
+                                        <option v-for="country in countries"  :value="country.id" :key="country.id"> {{ country.country   }}</option>
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <label>State of Origin <span class="text-danger">*</span></label>
+                                <select v-model="newStudent.stateoforiginid" @change="checkInput" >
+                                    <option value="null">Select State of Origin</option>
+                                    <option v-for="statee in stateofo" :value="statee.id" :key="statee.id" >{{statee.state}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>L.G.A</label>
+                                <input @change="checkInput" v-model="newStudent.local_govt_area" type="text" placeholder="...">
+                            </div>
                         </div>
                         <div class="form-group-row">
-                                    <div class="form-group">
-                                        <label>Date of Birth</label>
-                                        <input @change="checkInput" v-model="newStudent.dob" type="date" placeholder="...">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Gender</label>
-                                        <select v-model="newStudent.genderid" @change="checkInput">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Religion</label>
-                                        <select v-model="newStudent.religion" @change="checkInput">
-                                            <option value="">Select Religion</option>
-                                            <option value="christian">Christian</option>
-                                            <option value="islam">Islam</option>
-                                        </select>
-                                    </div>
-                                    
-                        </div>      
-                                             
-                </div>
-                <div v-if="step==2" >
-                    <div class="form-group-row">
-                        <div class="form-group">
-                            <label>Nationality <span class="text-danger">*</span></label>
-                                <select v-model="newStudent.nationalityid" @change="getStateofO(newStudent.nationalityid)">
-                                    <option value="">Select Nationlity</option>
-                                    <option v-for="country in countries"  :value="country.id" :key="country.id"> {{ country.country   }}</option>
-                                </select>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea @change="checkInput" v-model="newStudent.address" cols="100" rows="2" placeholder="..."></textarea>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>State of Origin <span class="text-danger">*</span></label>
-                            <select v-model="newStudent.stateoforiginid" @change="checkInput" >
-                                <option value="">Select State of Origin</option>
-                                <option v-for="statee in stateofo" :value="statee.id" :key="statee.id" >{{statee.state}}</option>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                            <label>Country </label>
+                            <select v-model="newStudent.countryid" @change="getState(newStudent.countryid)">
+                                <option value="null">Select Country</option>
+                                <option  v-for="country in countries" :value="country.id" :key="country.id"> {{ country.country   }}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>L.G.A</label>
-                            <input @change="checkInput" v-model="newStudent.local_govt_area" type="text" placeholder="...">
+                            <label>State</label>
+                            <select v-model="newStudent.stateid" @change="getCity(newStudent.stateid)">
+                                <option value="null">Select State</option>
+                                <option v-for="statee in states" :value="statee.id" :key="statee.id">{{statee.state}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <select v-model="newStudent.cityid" @change="checkInput">
+                                <option value="null">Select City</option>
+                                <option v-for="city in cities" :value="city.id" :key="city.id" >{{ city.city }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div v-if="step==3" >
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label>Enrollement Date</label>
+                            <input @change="checkInput" v-model="newStudent.enrollmentdate" type="month" placeholder="...">
+                        </div>                                    
+                        <div class="form-group">
+                            <label>Contact Email Address</label>
+                            <input @change="checkInput" v-model="newStudent.contactemail" type="email" placeholder="...">
                         </div>
                     </div>
                     <div class="form-group-row">
                         <div class="form-group">
-                            <label>Address</label>
-                            <textarea @change="checkInput" v-model="newStudent.address" cols="100" rows="2" placeholder="..."></textarea>
+                            <label>Contact Telephone</label>
+                            <input @change="checkInput" v-model="newStudent.contacttel" type="text" placeholder="...">
                         </div>
+                        <div class="form-group">
+                            <label>Class Group</label>
+                            <select v-model="newStudent.yearid" @change="getRoomGroups()">
+                                <option value="null">Select Class Group</option>
+                                <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
+                            </select>
+                        </div>
+                                                            <div class="form-group">
+                                            <label>Classroom</label>
+                                            <select v-model="newStudent.classroom" >
+                                                <option v-for="group in classrooms" :key="group.id" :value="group.id">
+                                                    {{ group.classgroupname }} {{ group.classroom }}
+                                                </option>
+                                            </select>
+                                        </div> 
+                        
                     </div>
                     <div class="form-group-row">
-                        <div class="form-group">
-                        <label>Country </label>
-                        <select v-model="newStudent.countryid" @change="getState(newStudent.countryid)">
-                            <option value="">Select Country</option>
-                            <option  v-for="country in countries" :value="country.id" :key="country.id"> {{ country.country   }}</option>
-                        </select>
-                    </div>
                     <div class="form-group">
-                        <label>State</label>
-                        <select v-model="newStudent.stateid" @change="getCity(newStudent.stateid)">
-                            <option value="">Select State</option>
-                            <option v-for="statee in states" :value="statee.id" :key="statee.id">{{statee.state}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>City</label>
-                        <select v-model="newStudent.cityid" @change="checkInput">
-                            <option value="">Select City</option>
-                            <option v-for="city in cities" :value="city.id" :key="city.id" >{{ city.city }}</option>
-                        </select>
-                    </div>
+                            <label>Student Image  <small style="color:red">maximum file upload size(2mb)</small></label>    
+                            <input @change="pickFile" type="file" placeholder="...">
+                        </div>
+    
+                                </div> 
                 </div>
-                </div>
-                <div v-if="step==3" >
-                <div class="form-group-row">
-                    <div class="form-group">
-                        <label>Enrollement Date</label>
-                        <input @change="checkInput" v-model="newStudent.enrollmentdate" type="month" placeholder="...">
-                    </div>                                    
-                    <div class="form-group">
-                        <label>Contact Email Address</label>
-                        <input @change="checkInput" v-model="newStudent.contactemail" type="email" placeholder="...">
-                    </div>
-                </div>
-                <div class="form-group-row">
-                    <div class="form-group">
-                        <label>Contact Telephone</label>
-                        <input @change="checkInput" v-model="newStudent.contacttel" type="text" placeholder="...">
-                    </div>
-                    <div class="form-group">
-                        <label>Class Group</label>
-                        <select v-model="newStudent.yearid" @change="getRoomGroups()">
-                            <option value="">Select Class Group</option>
-                            <option v-for="group in classgroups" :key="group.id" :value="group.id">{{ group.classgroupname }}</option>
-                        </select>
-                    </div>
-                                                        <div class="form-group">
-                                        <label>Classroom</label>
-                                        <select v-model="newStudent.classroom" >
-                                            <option v-for="group in classrooms" :key="group.id" :value="group.id">
-                                                {{ group.classgroupname }} {{ group.classroom }}
-                                            </option>
-                                        </select>
-                                    </div> 
-                    
-                </div>
-                 <div class="form-group-row">
-                 <div class="form-group">
-                        <label>Student Image  <small style="color:red">maximum file upload size(2mb)</small></label>    
-                        <input @change="pickFile" type="file" placeholder="...">
-                    </div>
-   
-                            </div> 
-            </div>
-                <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
-                <button @click.prevent="nextStep" v-if="this.step != this.totalsteps && this.checkFilled == false">Next</button>
-                <button @click.prevent="addStudent" v-if="this.step == this.totalsteps && this.updateMode == false">Add New Student</button>
-                <button @click.prevent="updateStudent" v-if="this.step == this.totalsteps && this.checkFilled == false && this.updateMode == true">Update Student</button>
-            </center>
+                    <button @click.prevent="prevStep" v-if="this.step > 1">Previous</button>
+                    <button @click.prevent="nextStep" v-if="this.step != this.totalsteps && this.checkFilled == false">Next</button>
+                    <button @click.prevent="addStudent" v-if="this.step == this.totalsteps && this.updateMode == false">Add New Student</button>
+                    <button @click.prevent="updateStudent" v-if="this.step == this.totalsteps && this.checkFilled == false && this.updateMode == true">Update Student</button>
+                </center>
 
-        </section>
-        <section v-if="assClassRoom">
-            <class-assign :studentid="selectedid" @showProfile="studentProfile" />            
-        </section>
-        <section v-if="createProfile  && !assClassRoom" >                 
-            <h1>All Students</h1>
-            <center> 
-                <p>Listed Below are all the registered students in this school</p>
-            </center>
-            <table id="my-table">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Class Group</th>
-                        <th>Enrollment Date</th>
-                        <th>Gender</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody :key="tableKey">
-                    <tr v-for="student in students" :key="student.id">
-                        <td>{{student.firstname}}</td>
-                        <td>{{student.lastname}}</td>
-                        <td>{{student.class_group.classgroupname}}</td>
-                        <td>{{student.enrollmentdate}}</td>
-                        <td>{{student.genderid}}</td>
-                        <td>
-                            <button  style="width:50px"    id="delete" @click.prevent="deleteStudent(student.id)" data-toggle="tooltip" data-placement="top" title="Disable Student Profile">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button  style="width:50px"    id="edit" @click.prevent="getSingleStudent(student.id)" data-toggle="tooltip" data-placement="top" title="Update Student Profile">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <!-- <button style="background:orange; margin-top:2%; margin-right:5%" @click.prevent="getStudentAcademicRecord(student.studentuseraccountid)" data-toggle="tooltip" data-placement="top" title="See Student Records">
-                                <i class="fas fa-chart-line"></i>
-                            </button> -->
-                            <button style="width:50px; background:grey; margin-top:2%; margin-right:5%" @click.prevent="assignClassRoom(student.studentuseraccountid)" data-toggle="tooltip" data-placement="top" title="Assign Classrooms">
-                                <i class="fas fa-chalkboard"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-                                                                 
-        </section>
-
-        
-       
+            </section>
+            <section v-if="assClassRoom">
+                <class-assign :studentid="selectedid" @showProfile="studentProfile" />            
+            </section>
+            <section v-if="!assClassRoom" >                 
+                <h1>All Students</h1>
+                <center> 
+                    <p>Listed Below are all the registered students in this school</p>                
+                    <table id="my-table">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Class Group</th>
+                                <th>Enrollment Date</th>
+                                <th>Gender</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody :key="tableKey">
+                            <tr v-for="student in students" :key="student.id">
+                                <td>{{student.firstname}}</td>
+                                <td>{{student.lastname}}</td>
+                                <td>{{student.class_group.classgroupname}}</td>
+                                <td>{{student.enrollmentdate}}</td>
+                                <td>{{student.genderid}}</td>
+                                <td>
+                                    <button  style="width:50px"    id="delete" @click.prevent="deleteStudent(student.id)" data-toggle="tooltip" data-placement="top" title="Disable Student Profile">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button  style="width:50px"    id="edit" @click.prevent="getSingleStudent(student.id)" data-toggle="tooltip" data-placement="top" title="Update Student Profile">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <!-- <button style="background:orange; margin-top:2%; margin-right:5%" @click.prevent="getStudentAcademicRecord(student.studentuseraccountid)" data-toggle="tooltip" data-placement="top" title="See Student Records">
+                                        <i class="fas fa-chart-line"></i>
+                                    </button> -->
+                                    <button style="width:50px; background:grey; margin-top:2%; margin-right:5%" @click.prevent="assignClassRoom(student.studentuseraccountid)" data-toggle="tooltip" data-placement="top" title="Assign Classrooms">
+                                        <i class="fas fa-chalkboard"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>                                            
+            </section>
+        </TransitionGroup>           
     </div>
 </template>
 <script>
@@ -219,29 +217,29 @@ export default {
         return {
                 checkFilled:true,
                 classrooms:null,
-                createProfile:true,
+                createProfile:false,
                 assClassRoom:false,
                 newStudent:{
-                    firstname:"",
-                    lastname:"",
-                    othernames:"",
-                    dob:"",
-                    genderid:"",
-                    religion:"",
-                    nationalityid:"",
-                    stateoforiginid:"",
-                    local_govt_area:"",
-                    address:"",
-                    countryid:"",
-                    stateid:"",
-                    cityid:"",
-                    enrollmentdate:"",
-                    contactemail:"",
-                    contacttel:"",
-                    yearid:"",
-                    photo:"",
-                    branchid:"",
-                    classroom:""
+                    firstname:null,
+                    lastname:null,
+                    othernames:null,
+                    dob:null,
+                    genderid:null,
+                    religion:null,
+                    nationalityid:null,
+                    stateoforiginid:null,
+                    local_govt_area:null,
+                    address:null,
+                    countryid:null,
+                    stateid:null,
+                    cityid:null,
+                    enrollmentdate:null,
+                    contactemail:null,
+                    contacttel:null,
+                    yearid:null,
+                    photo:null,
+                    branchid:null,
+                    classroom:null
 
                 },
                 updateMode:false,
@@ -297,6 +295,7 @@ export default {
                     this.profileid =  null
                     this.studentuserid = null
                     this.step = 1
+                    this.datatable()
         },
         nextStep(){
             if(this.updateMode == true){
@@ -464,7 +463,8 @@ export default {
                         this.updateMode = true
                         this.updateFetch()
                     }
-               this.getStudentClassRoom()
+                    this.createProfile = true;
+                    this.getStudentClassRoom()
             })
         },
         updateStudent(){
