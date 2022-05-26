@@ -61,7 +61,7 @@ div.dataTables_filter input{
 
 .navigation{
 	position: fixed;
-	width: 300px;
+	width: 250px;
 	height: 100%;
 	background: navy;
 	transition: 0.5s;
@@ -150,8 +150,8 @@ transform: translateX(30px);
 
 .main{
 	position: absolute;
-	width: calc(100% - 300px);
-	left: 300px;    
+	width: calc(100% - 250);
+	left: 250px;    
 	min-height: 100vh;
 	background: #f5f5f5;
 	transition: 0.5s;    	
@@ -380,7 +380,7 @@ button:disabled{
 	}
 
 	.navigation{
-		left: -300px;
+		left: -250px;
 	}
 
 	.navigation{
@@ -391,7 +391,7 @@ button:disabled{
 
 	.navigation.active{
 		left: 0;
-		width: 300px;
+		width: 250px;
 	}
 
 	.main{
@@ -400,8 +400,8 @@ button:disabled{
 	}
 
 	.main.active{
-		width: calc(100% - 300px);		
-		left: 300px;
+		width: calc(100% - 250);		
+		left: 250px;
 	}
 
 	.cardBox{
