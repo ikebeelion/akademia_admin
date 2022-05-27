@@ -1,6 +1,9 @@
 <template>
     <div>
         <h1>School Profile</h1>
+        <center class="loading" v-if="isLoading">
+            <loading />
+        </center>
         <center>
             <button style="width:20%; margin-right:5%" @click="showSchoolData">Display School Data</button>
             <button style="width:20%; margin-bottom:5%" @click="showPrincipalData">Principal Officer Data</button>
@@ -135,7 +138,9 @@
 import User from '../../apis/User.js'
 import School from '../../apis/School.js'
 import Swal from 'sweetalert2'
-  export default {                        
+import Loading  from '../Loading.vue'
+export default {    
+    components:{Loading},                           
     data() {
         return {
             schooldata:true,
@@ -159,6 +164,7 @@ import Swal from 'sweetalert2'
                 educationDistrict:"",
                 // principal:""
             },
+            isLoading:false,
             countries:null,
             states:null,
             cities:null,
@@ -285,10 +291,11 @@ import Swal from 'sweetalert2'
             })
         },
         updateSchoolProfile(){
-            console.log(this.schoolProfile)
+            this.isLoading = true
             if(this.error == null){
                 School.updateSchoolProfile(this.user.branch.schoolid, this.schoolProfile).then(() => {
                     this.getSchoolInfo()
+                    this.isLoading = false
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -298,6 +305,7 @@ import Swal from 'sweetalert2'
                         timer: 3000
                     })
                 }).catch(() => {
+                    this.isLoading = false
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
@@ -309,6 +317,7 @@ import Swal from 'sweetalert2'
                 });
             }
             else{
+                this.isLoading = false
                 Swal.fire({
                         position: 'top-end',
                         icon: 'error',
@@ -320,8 +329,8 @@ import Swal from 'sweetalert2'
             }                        
         }
     },
-    created() {
-        this.getAuth()        
+    created() {        
+        this.getAuth()           
     },
                     
 }

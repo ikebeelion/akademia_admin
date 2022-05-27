@@ -1,125 +1,86 @@
 <template>
-    <div class="container">
-		<div class="card" v-if="!this.reset_password">
+    <div class="container">        
+		<div class="card">
 			<div class="inner-box" id="card">
 				<div class="card-front">
+             
 					<center>
 						<span class="icon">
                 			<img class="logo" src="logo.png" alt=""> 							
 							<h1>Akademia</h1>
             			</span>
 					</center>
-					<center><h3 style="font-weight:500">Admin Login</h3></center>
-					<p style="color:red">{{errors}}</p>
-					<form>
-						<input @input="checkInput" type="text" v-model="logindata.username" class="input-box" name="email" placeholder="Your Username" autocomplete="" required> 
-						<input @input="checkInput" type="password" v-model="logindata.password" class="input-box" name="password" placeholder="Your Password" required>
+                       <center class="loading" v-if="isLoading">
+                    <loading-vue />
+                </center>
+					<center><h3 style="font-weight:500">Password Reset</h3></center>
+						<input @input="checkInput" type="text" v-model="passwordreset.email" class="input-box" name="email" placeholder="Your email" autocomplete="" required> 
+						
+						<button type="button" :disabled="checkFilled" @click="resetPassword" class="submit-btn">Reset</button>						
 
-						<button type="button" :disabled="checkFilled" @click="login" class="submit-btn">Login</button>						
-					</form>
-                                           
-
-					<button style="background:blue; border:1px solid white" type="button" class="btn" @click="openRegister()">I'm new here</button>
-					<small>
-						<button style="align-items:center; margin-top:10px" type="button" class="btn" @click="resetPassword()">
-							Forgot Password?
-						</button>
-					</small>
-
-					<button type="button" style="margin-top: 5% ;" class="btn" @click="openRegister()">
+                    <button style="background:blue; border:1px solid white" type="button" class="btn" @click="nullPassword()">Login</button>              					
+					<button type="button" class="btn">
 					<i class="fas fa-copyright"> </i> 2022 Next It-Services
 					</button>
 
-
-				</div>
-				<div class="card-back" id="card">
-					<h2>Register</h2>
-					<new-registration :countries="countries"/>
-					<a href="#" style="align-items:center; margin-top:10px" type="button" class="btn" @click="openLogin()">
-					I have an account 
-					</a>
-				
-					<button style="border: none;">
-					<i  style=" margin-top:0px"  class="fas fa-copyright"> </i> 2022 Next It-Services
-					</button>					
-				</div>
+				</div>		
 			</div>
-		</div>
-
-		<div v-if="this.reset_password">
-			<ResetPassword @nullpassword=nullPassword />
 		</div>
 	</div>		
 </template>
 <script>
 import User from '../../apis/User'
-import newRegistration from './Register.vue'
-import Register from '../../apis/Register.js'
-import ResetPassword from './ResetPassword.vue'
+import Swal from 'sweetalert2'
+import LoadingVue from '../Loading.vue'
 export default {
-	components:{newRegistration, ResetPassword},
+    components:{LoadingVue},
 	data() {
         return {
             checkFilled:true,
             rememberme:false,
-            logindata: {
-                username:null,
-                password:null,
-            },
-			user:null,
-            errors:null,
-			countries:null,
-			reset_password:false
+            isLoading:false,
+            passwordreset: {
+                email:null,                
+            },			            
         }
     },
     methods: {
         checkInput(){
             this.errors = null
-            if(this.logindata.username != null && this.logindata.password != null){
+            if(this.passwordreset.email != null){
                 this.checkFilled = false
             }else{
                 this.checkFilled = true
             }
         },
-		nullPassword(){this.reset_password = false},
-
-		openRegister(){
-			var card = document.getElementById('card')
-			card.style.transform = 'rotateY(-180deg)'
-			this.getCountry()
-		},
-		getCountry(){
-            Register.getCountry().then((result) => {
-                this.countries = result.data
-            })
+        nullPassword(){
+            this.$emit('nullpassword')
         },
-		resetPassword(){
-			this.reset_password = true
-		},
-		openLogin(){
-			var card = document.getElementById('card')
-
-			card.style.transform = 'rotateY(0deg)'
-		},
-
-        login(){					
-			User.login(this.logindata).then((result) =>{
-				// getUser				
-				localStorage.setItem("token", result.data['access_token'])					
-				console.log('token set')
-				window.location.href = 'dashboard'				
-				User.auth().then((result)=>{
-					console.log(result)
-					if(result.data.roleid == 2){
-						localStorage.setItem("auth", "true")						
-					}else{
-						this.errors = "Login as Administrator"
-					}
-				})
-				
+        resetPassword(){	
+            this.isLoading = true				
+			User.resetpassword(this.passwordreset).then((result) =>{
+                this.isLoading = false
+				Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Password Reset',
+                    customClass: 'Swal-small',
+                    showConfirmButton: false,
+                    timer: 3000
+                })				
+                this.passwordreset.email = null
+                this.nullPassword()
 			}
 			).catch((err) => {
-				this.errors = err.response.data.errors[0][0]
+                this.isLoading = false
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Email does not exist',
+                    customClass: 'Swal-wide',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
 			});
         }
 

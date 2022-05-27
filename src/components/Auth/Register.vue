@@ -1,6 +1,9 @@
 <template>
     <div>
     <!-- <form> -->
+        <center class="loading" v-if="isLoading">
+            <loading />
+        </center>
 		<p style="color:red">{{errors}}</p>
             <div v-if="this.step==1">
                 <div class="mb-3">
@@ -111,9 +114,8 @@
                                                 <div v-if="this.step==4">
                                                     <div class="mb-3">
                                                         <label for="schoolzone">Branch Name <span class="text-danger">*</span></label>
-                                                        <input type="text" class="input-box" v-model="branchData.branchname" id="useremail" placeholder="Enter Branch Name" required
-                                                        @input="checkAnswered">
-                                                        <div class="invalid-feedback" v-if="errors !=null && branchData.branchname == null">
+                                                        <input type="text" class="input-box" v-model="branchData.branchname" id="useremail" placeholder="Enter Branch Name" required>
+                                                        <div class="invalid-feedback" v-if="errors !=null">
                                                             Please Enter Address
                                                         </div>
                                                     </div>
@@ -131,9 +133,7 @@
                                                         <div class="invalid-feedback"  v-if="errors !=null && branchData.branchaddress == null">
                                                             Please Enter Email
                                                         </div>
-                                                    </div>
-
-                                                    
+                                                    </div>                                                    
                                                 </div>
                                                 <div v-if="this.step==5">
                                                     <div class="mb-3">
@@ -143,16 +143,7 @@
                                                         <div class="invalid-feedback" v-if="errors !=null && useraccessData.username == null">
                                                             Please Enter Username
                                                         </div>
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label for="userpassword">Password <span class="text-danger">*</span></label>
-                                                        <input type="password" class="input-box"  v-model="useraccessData.password" id="userpassword" placeholder="Enter password" required
-                                                        @input="checkAnswered">
-                                                        <div class="invalid-feedback" v-if="errors !=null && useraccessData.password == null">
-                                                            Please Enter Password
-                                                        </div>
-                                                    </div>
+                                                    </div>                                                  
 
                                                     <center>
                                                         <p style="font-size:11px">By registering you agree to the Akademia <a href="#" class="text-primary">Terms of Use</a></p>
@@ -171,7 +162,10 @@
 
 <script>
 import Register from '../../apis/Register'
+import Loading  from '../Loading.vue'
+import Swal from 'sweetalert2'
 export default {    
+    components:{Loading},
     props:{
         countries:null
     },
@@ -198,8 +192,7 @@ export default {
                 educationDistrict:null,
             },
             useraccessData:{
-                username:null,
-                password:null
+                username:null                
             },
             branchData:{
                 branchname:'Head Branch',
@@ -209,7 +202,8 @@ export default {
             errors:null,
             // countries:null,
             states:null,
-            cities:null
+            cities:null,
+            isLoading:false
 
         }
     },
@@ -223,7 +217,9 @@ export default {
                 this.checkFilled = false
             }else if(this.step == 3 && this.schooldata.schoolmotto != null && this.schooldata.schoolemail != null && this.schooldata.schooltel != null){
                 this.checkFilled = false
-            }else if(this.step == 4 && this.useraccessData.username != null && this.useraccessData.password != null && this.branchData.branchname != null & this.branchData.branchaddress != null){
+            }else if(this.step == 4 && this.branchData.branchaddress != null){
+                this.checkFilled = false
+            }else if (this.useraccessData.username != null ){
                 this.checkFilled = false
             }else{
                 this.checkFilled = true
@@ -233,22 +229,17 @@ export default {
         getState(countryid){
             Register.getState(countryid).then((result) => {
                 this.states = result.data
-            }).catch((err) => {
-
-            });
+            })
         },
         getCity(stateid){
              Register.getCity(stateid).then((result) => {
                 this.cities = result.data
-            }).catch((err) => {
-
-            });
+            })
         },
 
         nextStep(){
             this.checkFilled = true
             this.step = this.step + 1
-
             if(this.step == 2){
                 this.getCountry()
             }
@@ -260,11 +251,21 @@ export default {
             }
         },
         submitData(){
+            this.isLoading = true
             this.submit = [this.schooldata, this.useraccessData, this.branchData];
-            Register.submitData(this.submit).then((result) => {
+            Register.submitData(this.submit).then((result) => {                
+                this.isLoading = false
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "Registered, Check Email for password",
+                    customClass: 'Swal-medium',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
                 window.location.href = '/'
-            }).catch((err) => {
-                this.errors = err.response.data.errors[0][0]
+            }).catch((err) => {            
+                this.errors = "Registration Error"
             });
 
         },
@@ -272,13 +273,21 @@ export default {
         useCommonAddress(){
             this.branchData.branchaddress = this.schooldata.address
         },
-        // useCommonTel(){
-        //     this.branchData.tel = this.schooldata.schooltel
-        // }
-
     },
 
+    computed:{
+        branchaddress() {
+            return this.branchData.branchaddress
+        }
+    },
 
+    watch:{
+        branchaddress(){            
+                if(this.branchData.branchaddress != null){
+                    this.checkFilled = false
+                }
+            }
+        },    
     created() {        
         this.nextStep()
     },

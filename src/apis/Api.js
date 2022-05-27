@@ -1,9 +1,8 @@
 import axios from 'axios'
 
-let Api = axios.create({
-    // baseURL: "https://akademiaapi.herokuapp.com/api", 
+let Api = axios.create({    
     baseURL: "https://akademia.powerfields.ng/api",
-    // baseURL: "http://akademia_api.test/api",
+    // baseURL: "http://localhost:8000/api",
     headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token') 
     },

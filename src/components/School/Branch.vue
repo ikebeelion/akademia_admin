@@ -1,6 +1,9 @@
 <template>
     <div>
         <h1>Branches</h1>
+         <center class="loading" v-if="isLoading">
+            <loading />
+        </center>
         <section style="margin-bottom:20px">
             <center>
                 <div class="form-group-row">
@@ -86,7 +89,9 @@
 import User from '../../apis/User.js'
 import Branch from '../../apis/Branch.js'
 import Swal from 'sweetalert2'
+import Loading from '../Loading.vue'
 export default {
+    components:{Loading},
     data() {
         return {
                 checkFilled:true,
@@ -98,6 +103,7 @@ export default {
                     cityid:"",
                     branchtel:""
                 },
+                isLoading:false,
                 updateMode:false,
                 countries:null,
                 states:null,
@@ -158,10 +164,11 @@ export default {
                 })
         },
         addBranch(){
-            console.log(this.schoolid)
+            this.isLoading = true
             var post = [this.newBranch, this.schoolid]
             Branch.addBranch(post).then(() => {
                 this.getBranches()
+                this.isLoading = false
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -172,8 +179,7 @@ export default {
                 })
             })
         },
-        getSingleBranch(id){
-            // get Branch details
+        getSingleBranch(id){            
             Branch.getSingleBranch(id).then((result) => {
                     this.updateMode = true
                     this.newBranch.branchname = result.data.branchname
@@ -189,8 +195,10 @@ export default {
         },
 
         updateBranch(){
+            this.isLoading = true
             Branch.updateBranch(this.branchid , this.newBranch).then(() => {
                 this.getBranches()
+                this.isLoading = false
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -204,8 +212,10 @@ export default {
         },
 
         deleteBranch(id){
+            this.isLoading = true
              Branch.deleteBranch(id).then(() => {
                 this.getBranches()
+                this.isLoading = false
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

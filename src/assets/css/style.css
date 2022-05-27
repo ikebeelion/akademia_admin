@@ -59,6 +59,16 @@ div.dataTables_filter input{
 	width: 100%;
 }
 
+.loading{
+	position: absolute;	
+	padding-top: 20%;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+	background: rgba(0, 0, 0, 0.797);
+	height: 100%;
+}
+
 .navigation{
 	position: fixed;
 	width: 250px;
